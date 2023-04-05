@@ -35,7 +35,13 @@ const Hero = () => {
             </Text>
           </Box>
         </Box>
-        <Box>
+        <Box
+          display={'flex'}
+          flexWrap={'wrap'}
+          justifyContent={'space-between'}
+          gap={8}
+          py={8}
+        >
           {
             testCards.map((item, index) => (
               <ActivityCard
