@@ -15,6 +15,7 @@ import { FaFilter } from 'react-icons/fa'
 import { BsFillBookFill } from 'react-icons/bs'
 
 import { checkImageURL } from '../../utils'
+// import { gradient01 } from '../../styles'
 
 const ActivityCard = ({ image, title, employerName, employerLogo, text, requirements, responsibilities, benefits, link, country, type, time, position }) => {
   
@@ -28,7 +29,7 @@ const ActivityCard = ({ image, title, employerName, employerLogo, text, requirem
       if(result.length > 180) break
     }
 
-    return result
+    return result.length == 0 ? text : result
   }
 
   const getTextEnd = (text) => {
@@ -40,12 +41,17 @@ const ActivityCard = ({ image, title, employerName, employerLogo, text, requirem
   }
   
   return (
-    <Box width={'20rem'} position={'relative'}>
+    <Box 
+      width={'20rem'} 
+      position={'relative'}
+      h={'100%'}
+      shadow={'-30px 20px 50px #383838'}
+    >
       <Card backgroundColor={'gray.200'}>
         <CardHeader p={0}>
         {
               checkImageURL(image) ? 
-              <Image src={image} p={0} borderTopRadius={'10px'} /> :
+              <Image src={image} w={'20rem'} h={'11rem'} p={0} borderTopRadius={'10px'} /> :
               null
         }
         </CardHeader>
