@@ -9,6 +9,7 @@ import {
   Button,
   Image,
 } from '@chakra-ui/react'
+import { useNavigate } from 'react-router'
 
 import { AiOutlineShareAlt, AiFillLike } from 'react-icons/ai' 
 import { FaFilter } from 'react-icons/fa'
@@ -17,8 +18,9 @@ import { BsFillBookFill } from 'react-icons/bs'
 import { checkImageURL } from '../../utils'
 // import { gradient01 } from '../../styles'
 
-const ActivityCard = ({ image, title, employerName, employerLogo, text, requirements, responsibilities, benefits, link, country, type, time, position }) => {
-  
+const ActivityCard = ({ id, image, title, employerName, employerLogo, text, requirements, responsibilities, benefits, link, country, type, time, position }) => {
+  const navigate = useNavigate()
+
   const getTextWithoutEnd = (text) => {
     const sentencesArr = text.split('.')
     
@@ -38,6 +40,35 @@ const ActivityCard = ({ image, title, employerName, employerLogo, text, requirem
     const result = `${sentencesArr[sentencesArr.length - 2]}.`
     
     return result.length > 45 ? result.substring(0, 45) + '...' : result + '..'
+  }
+
+  const handleReadMoreClick = () => {
+    navigate(`/${id}`, 
+      { state: {
+          id, 
+          image, 
+          title, 
+          employerName, 
+          employerLogo, 
+          text,
+          requirements, 
+          responsibilities, 
+          benefits, 
+          link, 
+          country, 
+          type, 
+          time, 
+          position
+      } } 
+    )
+  }
+
+  const handleCardClick = () => {
+
+  }
+
+  const handleLikeClick = () => {
+
   }
   
   return (
@@ -120,6 +151,7 @@ const ActivityCard = ({ image, title, employerName, employerLogo, text, requirem
             <Button
               // colorScheme='yellow'
               bgColor={'rgb(215 166 85)'}
+              onClick={handleReadMoreClick}
             >
               <Box 
                 display={'flex'}
