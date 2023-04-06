@@ -1,4 +1,5 @@
 import { Box, Image } from '@chakra-ui/react'
+import { useLocation } from 'react-router-dom'
 
 import { 
   Navbar,
@@ -9,6 +10,10 @@ import {
 import { gradient01 } from '../styles'
 
 const Home = () => {
+  const location = useLocation()
+
+  const filters = location.state
+  
   return (
     <Box w={'100vw'} h={'100vh'}>
       <Box
