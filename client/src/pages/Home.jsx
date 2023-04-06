@@ -3,6 +3,7 @@ import { Box, Image } from '@chakra-ui/react'
 import { 
   Navbar,
   Hero,
+  ActivityList
 } from '../components'
 
 import { gradient01 } from '../styles'
@@ -23,10 +24,11 @@ const Home = () => {
           w={'70%'}
           h={'80%'}
           borderRadius={'30% 70% 100% 0% / 0% 77% 23% 100%'}
+          objectFit={'cover'}
         />
         <Box background={gradient01}>
-          <Navbar />
           <Hero />
+          <ActivityList />
         </Box>
       </Box>
     </Box>
