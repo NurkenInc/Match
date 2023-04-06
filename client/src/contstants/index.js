@@ -1,5 +1,6 @@
 export const testCards = [
   {
+    id: 'super-id-6',
     image: 'https://www.applyboard.com/wp-content/uploads/2019/12/American-Universities-Feature-Image.jpg',
     title: 'Welcome to Verdant University, where excellence and innovation intersect to provide students with a transformative educational experience. Our university is proud to offer a wide range of undergraduate and graduate programs that challenge students to grow intellectually, socially, and personally.',
     employerName: 'Verdant University',
@@ -7,134 +8,41 @@ export const testCards = [
     time: 'Full-time',
     position: 'Student',
     employerLogo: 'https://kentemploymentlaw.com/wp-content/uploads/2021/02/placeholder-image.jpg',
-    text: `Certainly! Here's an example of a text for a university admission ad, as if I were an admissions officer:
+    text: '',
+    requirements: ['fvdfvfd fd df fdvfv 12fddf fvdf dfvdsvd d df fdsdds df f', 'f', 'f'],
+    responsibilities: [],
+    benefits: [],
+    link: 'https://twitter.com/?lang=en',
+    country: 'US',
+  }
+]
 
-    Welcome to Verdant University, where excellence and innovation intersect to provide students with a transformative educational experience. Our university is proud to offer a wide range of undergraduate and graduate programs that challenge students to grow intellectually, socially, and personally.
-    
-    To be admitted to Verdant University, applicants must meet our rigorous academic standards, demonstrate a passion for learning, and exhibit strong character and leadership potential. Our admissions team carefully reviews each application to ensure that we select the most talented and dedicated students who will thrive in our community.
-    
-    As a student at Verdant Name, you will have access to world-class faculty, cutting-edge research facilities, and a diverse student body. You will be challenged to think critically and creatively, and to engage with the most pressing issues facing our society. You will also have the opportunity to participate in a wide range of extracurricular activities, from sports and music to volunteer work and community service.
-    
-    At Verdant university, we believe that education should not only be about acquiring knowledge, but also about developing the skills and values needed to make a positive impact in the world. Our graduates are leaders in their fields, who use their education to make a difference in their communities and beyond.
-    
-    If you are ready to take the next step in your educational journey, we encourage you to apply to Verdant today. We look forward to welcoming you into our community of scholars and innovators.`,
-    requirements: 'To be admitted to Verdant university, applicants must meet our rigorous academic standards, demonstrate a passion for learning, and exhibit strong character and leadership potential. We require a completed application, official transcripts from all previous schools attended, letters of recommendation, and a personal essay that highlights the applicant\'s intellectual curiosity and leadership potential. In addition, we encourage applicants to participate in extracurricular activities and community service projects, as we value a well-rounded student body that is committed to making a positive impact in the world.',
-    responsibilities: `As a student at Verdant university, you will be expected to take your education seriously and to actively engage with the material and your peers. You will be responsible for attending classes, completing assignments, and participating in discussions and group projects. Our faculty are committed to providing a challenging and supportive learning environment, and we expect our students to take advantage of the many resources and opportunities available to them. We also encourage students to seek out research and internship opportunities, as we believe that hands-on experience is an essential component of a well-rounded education.`,
-    benefits: 'As a student at Verdant university, you will have access to world-class faculty, cutting-edge research facilities, and a diverse student body. You will be challenged to think critically and creatively, and to engage with the most pressing issues facing our society. You will also have the opportunity to participate in a wide range of extracurricular activities, from sports and music to volunteer work and community service.',
-    link: 'https://twitter.com/?lang=en',
-    country: 'US',
-  },
-  {
-    image: 'https://www.applyboard.com/wp-content/uploads/2019/12/American-Universities-Feature-Image.jpg',
-    title: 'Welcome to Verdant University.',
-    employerName: 'Innopolis Inc.',
-    type: 'Journalism',
-    time: 'Part-time',
-    position: 'Copyrighter',
-    employerLogo: 'https://kentemploymentlaw.com/wp-content/uploads/2021/02/placeholder-image.jpg',
-    text: `Certainly! Here's an example.`,
-    requirements: 'To be admitted to Innopolis Inc',
-    responsibilities: `As a student at Innopolis Inc, you will be expected.`,
-    benefits: 'As a student at Innopolis Inc.',
-    link: 'https://twitter.com/?lang=en',
-    country: 'KZ',
-  },
-  {
-    image: 'https://www.applyboard.com/wp-content/uploads/2019/12/American-Universities-Feature-Image.jpg',
-    title: 'Welcome to Idk corp.',
-    employerName: 'Idk corp',
-    type: 'Design',
-    time: 'Full-time',
-    position: 'UI Designer',
-    employerLogo: 'https://kentemploymentlaw.com/wp-content/uploads/2021/02/placeholder-image.jpg',
-    text: `were an admissions officer.`,
-    requirements: 'To be demonstrate a passion for learning,.',
-    responsibilities: ` peers. You will be responsible for attending well-rounded education.`,
-    benefits: 'As a student at Verdant university, you will have acc diverse student body. You will be challenged to think critically and creatively, and to engage with the most pressing issues facing our society. You will also have the opportunity to participate in a wide range of extracurricular activities, from sports and music to volunteer work and community service.',
-    link: 'https://twitter.com/?lang=en',
-    country: 'US',
-  },
-  {
-    image: 'https://www.applyboard.com/wp-content/uploads/2019/12/American-Universities-Feature-Image.jpg',
-    title: 'Welcome to Verdant University, where excellence and innovation intersect to provide students with a transformative educational experience. Our university is proud to offer a wide range of undergraduate and graduate programs that challenge students to grow intellectually, socially, and personally.',
-    employerName: 'Verdant University',
-    type: 'Education',
-    time: 'Full-time',
-    position: 'Student',
-    employerLogo: 'https://kentemploymentlaw.com/wp-content/uploads/2021/02/placeholder-image.jpg',
-    text: `Certainly! Here's an example of a text for a university admission ad, as if I were an admissions officer:
+export const activityTypes = [
+  "Computer Science",
+  "Journalism",
+  "Media",
+  "Marketing",
+  "Education",
+  "Healthcare",
+  "Law",
+  "Engineering",
+  "Accounting",
+  "Finance",
+  "Graphic Design",
+  "Architecture",
+  "Environmental Science",
+  "Hospitality and Tourism",
+  "Performing Arts",
+  "Social Work",
+  "Psychology",
+  "Business Administration",
+  "Sports and Athletics",
+  "Fashion Design",
+  "Other",
+]
 
-    Welcome to Verdant University, where excellence and innovation intersect to provide students with a transformative educational experience. Our university is proud to offer a wide range of undergraduate and graduate programs that challenge students to grow intellectually, socially, and personally.
-    
-    To be admitted to Verdant University, applicants must meet our rigorous academic standards, demonstrate a passion for learning, and exhibit strong character and leadership potential. Our admissions team carefully reviews each application to ensure that we select the most talented and dedicated students who will thrive in our community.
-    
-    As a student at Verdant Name, you will have access to world-class faculty, cutting-edge research facilities, and a diverse student body. You will be challenged to think critically and creatively, and to engage with the most pressing issues facing our society. You will also have the opportunity to participate in a wide range of extracurricular activities, from sports and music to volunteer work and community service.
-    
-    At Verdant university, we believe that education should not only be about acquiring knowledge, but also about developing the skills and values needed to make a positive impact in the world. Our graduates are leaders in their fields, who use their education to make a difference in their communities and beyond.
-    
-    If you are ready to take the next step in your educational journey, we encourage you to apply to Verdant today. We look forward to welcoming you into our community of scholars and innovators.`,
-    requirements: 'To be admitted to Verdant university, applicants must meet our rigorous academic standards, demonstrate a passion for learning, and exhibit strong character and leadership potential. We require a completed application, official transcripts from all previous schools attended, letters of recommendation, and a personal essay that highlights the applicant\'s intellectual curiosity and leadership potential. In addition, we encourage applicants to participate in extracurricular activities and community service projects, as we value a well-rounded student body that is committed to making a positive impact in the world.',
-    responsibilities: `As a student at Verdant university, you will be expected to take your education seriously and to actively engage with the material and your peers. You will be responsible for attending classes, completing assignments, and participating in discussions and group projects. Our faculty are committed to providing a challenging and supportive learning environment, and we expect our students to take advantage of the many resources and opportunities available to them. We also encourage students to seek out research and internship opportunities, as we believe that hands-on experience is an essential component of a well-rounded education.`,
-    benefits: 'As a student at Verdant university, you will have access to world-class faculty, cutting-edge research facilities, and a diverse student body. You will be challenged to think critically and creatively, and to engage with the most pressing issues facing our society. You will also have the opportunity to participate in a wide range of extracurricular activities, from sports and music to volunteer work and community service.',
-    link: 'https://twitter.com/?lang=en',
-    country: 'US',
-  },
-  {
-    image: 'https://www.applyboard.com/wp-content/uploads/2019/12/American-Universities-Feature-Image.jpg',
-    title: 'Welcome to Verdant University, where excellence and innovation intersect to provide students with a transformative educational experience. Our university is proud to offer a wide range of undergraduate and graduate programs that challenge students to grow intellectually, socially, and personally.',
-    employerName: 'Verdant University',
-    type: 'Education',
-    time: 'Full-time',
-    position: 'Student',
-    employerLogo: 'https://kentemploymentlaw.com/wp-content/uploads/2021/02/placeholder-image.jpg',
-    text: `Certainly! Here's an example of a text for a university a admissions officer:
-
-    Welcome to Verdant University, where excellence and innovation i be about acquiring knowledge, but also about developing the skills and values needed to make a positive impact in the world. Our graduates are leaders in their fields, who use their education to make a difference in their communities and beyond.
-    
-    If you are ready to take the next step in your educational journ to Verdant today. We look forward to welcoming you into our community of scholars and innovators.`,
-    requirements: 'To be admitted to Verdant university, applicants , and exhibit strong character and leadership potential. We require a completed application, official transcripts from all previous schools attended, letters of recommendation, and a personal essay that highlights the applicant\'s intellectual curiosity and leadership potential. In addition, we encourage applicants to participate in extracurricular activities and community service projects, as we value a well-rounded student body that is committed to making a positive impact in the world.',
-    responsibilities: `As a student at Verdant university, you will  with the material and your peers. You will be responsible for attending classes, completing assignments, and participating in discussions and group projects. Our faculty are committed to providing a challenging and supportive learning environment, and we expect our students to take advantage of the many resources and opportunities available to them. We also encourage students to seek out research and internship opportunities, as we believe that hands-on experience is an essential component of a well-rounded education.`,
-    benefits: 'As a student at Verdant university, you will have acc facilities, and a diverse student body. You will be challenged to think critically and creatively, and to engage with the most pressing issues facing our society. You will also have the opportunity to participate in a wide range of extracurricular activities, from sports and music to volunteer work and community service.',
-    link: 'https://twitter.com/?lang=en',
-    country: 'US',
-  },
-  {
-    image: 'https://www.applyboard.com/wp-content/uploads/2019/12/American-Universities-Feature-Image.jpg',
-    title: 'Welcome to Verdant University, where excellence and innovation intersect to provide students with a transformative educational experience. Our university is proud to offer a wide range of undergraduate and graduate programs that challenge students to grow intellectually, socially, and personally.',
-    employerName: 'Verdant University',
-    type: 'Education',
-    time: 'Full-time',
-    position: 'Student',
-    employerLogo: 'https://kentemploymentlaw.com/wp-content/uploads/2021/02/placeholder-image.jpg',
-    text: `Certainly! Here's an example of a text for a university admission ad, as if I were an admissions officer:
-
-    Welcome to Verdant University, where excellence and innovation intersect to provide students with a transformative educational experience. Our university is proud to offer a wide range of undergraduate and graduate programs that challenge students to grow intellectually, socially, and personally.
-    
-    To be admitted to Verdant University, applicants must meet our rigorous academic standards, demonstrate a passion for learning, and exhibit strong character and leadership potential. Our admissions team carefully reviews each application to ensure that we select the most talented and dedicated students who will thrive in our community.
-     
-    If you are ready to take the next step in your educational journey, we encourage you to apply to Verdant today. We look forward to welcoming you into our community of scholars and innovators.`,
-    requirements: 'To be admitted to Verdant university, applicants must meet our rigorous academic standards, demonstrate a passion for learning, and exhibit strong character and leadership potential. We require a completed application, official transcripts from all previous schools attended, letters of recommendation, and a personal essay that highlights the applicant\'s intellectual curiosity and leadership potential. In addition, we encourage applicants to participate in extracurricular activities and community service projects, as we value a well-rounded student body that is committed to making a positive impact in the world.',
-    responsibilities: `As a student at Verdant university, you will be expected to take your education seriously and to actively engage with the material and your peers. You will be responsible for attending classes, completing assignments, and participating in discussions and group projects. Our faculty are committed to providing a challenging and supportive learning environment, and we expect our students to take advantage of the many resources and opportunities available to them. We also encourage students to seek out research and internship opportunities, as we believe that hands-on experience is an essential component of a well-rounded education.`,
-    benefits: 'As a student at Verdant university, you will have access to world-class faculty, cutting-edge research facilities, and a diverse student body. You will be challenged to think critically and creatively, and to engage with the most pressing issues facing our society. You will also have the opportunity to participate in a wide range of extracurricular activities, from sports and music to volunteer work and community service.',
-    link: 'https://twitter.com/?lang=en',
-    country: 'US',
-  },
-  {
-    image: 'https://www.applyboard.com/wp-content/uploads/2019/12/American-Universities-Feature-Image.jpg',
-    title: 'Welcome to Verdant University, where excellence and innovation intersect to provide students with a transformative educational experience. Our university is proud to offer a wide range of undergraduate and graduate programs that challenge students to grow intellectually, socially, and personally.',
-    employerName: 'Verdant University',
-    type: 'Education',
-    time: 'Full-time',
-    position: 'Student',
-    employerLogo: 'https://kentemploymentlaw.com/wp-content/uploads/2021/02/placeholder-image.jpg',
-    text: `Certainly! Here's an example of a text for a university admission ad, as if I were an admissions officer:
-
-    
-    If you are ready to take the next step in your educational journey, we encourage you to apply to Verdant today. We look forward to welcoming you into our community of scholars and innovators.`,
-    requirements: 'To be admitted to Verdant university, applicants must meet our rigorous academic standards, demonstrate a passion for learning, and exhibit strong character and leadership potential. We require a completed application, official transcripts from all previous schools attended, letters of recommendation, and a personal essay that highlights the applicant\'s intellectual curiosity and leadership potential. In addition, we encourage applicants to participate in extracurricular activities and community service projects, as we value a well-rounded student body that is committed to making a positive impact in the world.',
-    responsibilities: `As a student at Verdant university, you will be expected to take your education seriously and to actively engage with the material and your peers. You will be responsible for attending classes, completing assignments, and participating in discussions and group projects. Our faculty are committed to providing a challenging and supportive learning environment, and we expect our students to take advantage of the many resources and opportunities available to them. We also encourage students to seek out research and internship opportunities, as we believe that hands-on experience is an essential component of a well-rounded education.`,
-    benefits: 'As a student at Verdant university, you will have access to world-class faculty, cutting-edge research facilities, and a diverse student body. You will be challenged to think critically and creatively, and to engage with the most pressing issues facing our society. You will also have the opportunity to participate in a wide range of extracurricular activities, from sports and music to volunteer work and community service.',
-    link: 'https://twitter.com/?lang=en',
-    country: 'US',
-  },
+export const timeTypes = [
+  "Full-time",
+  "Part-time",
+  "Other",
 ]
