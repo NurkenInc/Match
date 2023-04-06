@@ -14,7 +14,7 @@ import { testCards } from '../../contstants'
 
 const Hero = () => {
   return (
-    <Container maxW={'container.xl'}>
+    <Container pt={12} maxW={'container.xl'}>
       <Box>
         <Box>
           <Box
@@ -30,26 +30,11 @@ const Hero = () => {
               opacity={0.7}
               fontFamily={'Panoptica-SansBold'}
               lineHeight={'18px'}
+              cursor={'default'}
             >
               How about find you Match? Our platform it's a great resource to do it! Internships, volunteering, jobs, projects and more! Opportunities all around!
             </Text>
           </Box>
-        </Box>
-        <Box
-          display={'flex'}
-          flexWrap={'wrap'}
-          justifyContent={'space-between'}
-          gap={8}
-          py={8}
-        >
-          {
-            testCards.map((item, index) => (
-              <ActivityCard
-                key={item.title + index}
-                {...item}
-              />
-            ))
-          }
         </Box>
       </Box>
     </Container>
