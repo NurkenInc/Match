@@ -59,6 +59,20 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #e4e4e4;
+  border-radius: 100px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #77511c;
+  border-radius: 100px;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
@@ -81,3 +95,13 @@ button:focus-visible {
   url("//db.onlinewebfonts.com/t/81dd451eafdb38f1567d8a22f0f571a4.ttf") format("truetype"), 
   url("//db.onlinewebfonts.com/t/81dd451eafdb38f1567d8a22f0f571a4.svg#PanopticaW00-SansBold") format("svg"); 
 }
+
+/* @font-face {
+  font-family: "BelloWordsPro-Regular"; 
+  src: url("//db.onlinewebfonts.com/t/3bfe4825a1c0bdce77cb8111fa42161d.eot"); 
+  src: url("//db.onlinewebfonts.com/t/3bfe4825a1c0bdce77cb8111fa42161d.eot?#iefix") format("embedded-opentype"), 
+  url("//db.onlinewebfonts.com/t/3bfe4825a1c0bdce77cb8111fa42161d.woff2") format("woff2"), 
+  url("//db.onlinewebfonts.com/t/3bfe4825a1c0bdce77cb8111fa42161d.woff") format("woff"), 
+  url("//db.onlinewebfonts.com/t/3bfe4825a1c0bdce77cb8111fa42161d.ttf") format("truetype"), 
+  url("//db.onlinewebfonts.com/t/3bfe4825a1c0bdce77cb8111fa42161d.svg#BelloWordsPro-Regular") format("svg"); 
+} */
