@@ -5,15 +5,19 @@ import {
   List,
   ListItem,
   Tooltip,
+  useColorModeValue,
+  useDisclosure
 } from '@chakra-ui/react'
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import { BiUser } from 'react-icons/bi'
 import { AiFillHome, AiOutlineSearch, AiFillHeart  } from 'react-icons/ai'
 import { HiFilter } from 'react-icons/hi'
 import { BsFillBookmarkFill } from 'react-icons/bs'
 
-import { Logotype } from '../index'
+import { Logotype, FilterModal, SearchModal } from '../index'
+
+import { navIconsHover } from '../../styles' 
 
 const CustomIcon = React.forwardRef(({ children, ...rest }, ref) => (
   <Box ref={ref} {...rest}>
@@ -22,8 +26,19 @@ const CustomIcon = React.forwardRef(({ children, ...rest }, ref) => (
 ))
 
 const Navbar = () => {
+  const searchModal = useDisclosure()
+  const filterModal = useDisclosure()
+  const navigate = useNavigate()
+
   return (
-    <Box as='nav'>
+    <Box 
+      as='nav' 
+      position={'fixed'} 
+      w={'100%'} 
+      zIndex={2} 
+      css={{ backdropFilter: 'blur(10px)' }}
+      bg={useColorModeValue('#20202380', '#ffffff40')}
+    >
       <Container 
         maxW={'container.xl'}
         display={'flex'}
@@ -34,8 +49,16 @@ const Navbar = () => {
           display={'flex'} 
           alignItems={'center'}
           gap={14}
-        >
-          <Box p={2}>
+          backgroundColor={'blackAlpha.200'}
+          px={8}
+          borderTopRadius={'30px'}
+          borderRightRadius={'30px'}
+          >
+          <Box
+            cursor={'default'}
+            p={2}
+            _hover={navIconsHover}
+          >
             <Logotype />
           </Box>
           <Box>
@@ -48,40 +71,52 @@ const Navbar = () => {
               color={'white'}
               opacity={0.4}
             >
-              <ListItem>
-                <Link to={'/'}>
+              <ListItem 
+                _hover={navIconsHover} 
+                cursor={'pointer'}>
+                {/* Make filter on recent */}
                 <Tooltip label='Popular'>
                     <CustomIcon><AiFillHeart /></CustomIcon>
                   </Tooltip>
-                </Link>
               </ListItem>
-              <ListItem>
-                <Link to={'/'}>
-                  <Tooltip label='Search'>
-                    <CustomIcon><AiOutlineSearch /></CustomIcon>
-                  </Tooltip>
-                </Link>
+              <ListItem 
+                _hover={navIconsHover} 
+                cursor={'pointer'} 
+                onClick={searchModal.onOpen}
+              >
+                <Tooltip label='Search'>
+                  <CustomIcon>
+                    <AiOutlineSearch />
+                  </CustomIcon>
+                </Tooltip>
               </ListItem>
-              <ListItem>
-                <Link to={'/'}>
+              <ListItem 
+                _hover={navIconsHover} 
+                onClick={() => {
+                  navigate('/')
+                }}
+              >
                 <Tooltip label='Home'>
-                    <CustomIcon><AiFillHome /></CustomIcon>
-                  </Tooltip>
-                </Link>
+                  <CustomIcon><AiFillHome /></CustomIcon>
+                </Tooltip>
               </ListItem>
-              <ListItem>
-                <Link to={'/'}>
-                  <Tooltip label='Filter'>
-                    <CustomIcon><HiFilter /></CustomIcon>
-                  </Tooltip>
-                </Link>
+              <ListItem 
+                cursor={'pointer'} 
+                onClick={filterModal.onOpen}
+                _hover={navIconsHover}
+              >
+                <Tooltip label='Filter'>
+                  <CustomIcon><HiFilter /></CustomIcon>
+                </Tooltip>
               </ListItem>
-              <ListItem>
-                <Link to={'/'}>
+              <ListItem 
+                cursor={'pointer'}
+                _hover={navIconsHover}  
+              >
+                {/* make filter by liked */}
                   <Tooltip label='Saved'>
                     <CustomIcon><BsFillBookmarkFill /></CustomIcon>
                   </Tooltip>
-                </Link>
               </ListItem>
             </List>
           </Box>
@@ -104,16 +139,20 @@ const Navbar = () => {
               display={'flex'}
               justifyContent={'center'}
               alignItems={'center'}
+              _hover={navIconsHover}
+              onClick={() => {
+                navigate('/profile')
+              }}
             >
-              <Link to={'/'}>
                 <Tooltip label='profile'>
                   <CustomIcon><BiUser /></CustomIcon>
                 </Tooltip>
-              </Link>
             </ListItem>
           </List>
         </Box>
       </Container>
+      <FilterModal isOpen={filterModal.isOpen} onClose={filterModal.onClose} />
+      <SearchModal isOpen={searchModal.isOpen} onClose={searchModal.onClose} />
     </Box>
   )
 }
