@@ -5,9 +5,10 @@ import { ChakraProvider } from '@chakra-ui/react'
 
 import {
   Home,
-  ActivitySearch,
-  ActivityDetails
-} from '../pages/index'
+  ActivityDetails,
+} from '../pages'
+
+import { Navbar } from '../components'
 
 import theme from '../theme'
 import './App.css'
@@ -17,8 +18,10 @@ function App() {
     // <Provider>
       <ChakraProvider theme={theme}>
         <Router>
+          <Navbar />
           <Routes>
             <Route path='/' element={<Home />} />
+            <Route path='/:activityId' element={<ActivityDetails />} />
           </Routes>
         </Router>
       </ChakraProvider>
