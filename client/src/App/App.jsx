@@ -6,6 +6,7 @@ import { ChakraProvider } from '@chakra-ui/react'
 import {
   Home,
   ActivityDetails,
+  Auth
 } from '../pages'
 
 import { Navbar } from '../components'
@@ -22,6 +23,7 @@ function App() {
           <Routes>
             <Route path='/' element={<Home />} />
             <Route path='/:activityId' element={<ActivityDetails />} />
+            <Route path='/auth' element={<Auth />} />
           </Routes>
         </Router>
       </ChakraProvider>
