@@ -1,16 +1,24 @@
 import express from 'express'
 
+import {
+  createActivityCard,
+  deleteActivityCard,
+  getActivityCard,
+  getActivityCards,
+  likeActivityCard,
+  updateActivityCard
+} from '../controllers'
+
 const router = express.Router()
 
-router.get('/', )
-router.get('/:id', )
+router.get('/', getActivityCards)
+router.get('/:id', getActivityCard)
 
-router.post('/', )
+router.post('/', createActivityCard)
 
-router.delete('/:id', )
+router.delete('/:id', deleteActivityCard)
 
-router.patch('/:id', )
-router.patch('/:id/likeActivityCard', )
-
+router.patch('/:id', updateActivityCard)
+router.patch('/:id/likeActivityCard', likeActivityCard)
 
 export default router
