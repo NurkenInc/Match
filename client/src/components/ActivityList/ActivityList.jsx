@@ -5,11 +5,11 @@ import {
 
 import { ActivityCard } from '../index'
 
-import { testCards } from '../../contstants'
+import { testCards } from '../../constants'
 
 const ActivityList = () => {
   return (
-    <Container pt={12} maxW={'container.xl'}>
+    <Container maxW={'container.xl'}>
       <Box
         display={'flex'}
         flexWrap={'wrap'}
