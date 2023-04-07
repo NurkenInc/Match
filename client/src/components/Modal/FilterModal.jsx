@@ -17,7 +17,7 @@ import {
 } from '@chakra-ui/react'
 import { useNavigate } from 'react-router'
 
-import { activityTypes, timeTypes } from '../../contstants' 
+import { activityTypes, timeTypes } from '../../constants' 
 
 const FilterModal = ({ isOpen, onClose }) => {
   const [activityType, setActivityType] = useState('')
