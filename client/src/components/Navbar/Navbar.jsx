@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   Container,
   Box,
@@ -6,11 +6,13 @@ import {
   ListItem,
   Tooltip,
   useColorModeValue,
-  useDisclosure
+  useDisclosure,
+  Button,
+  Text
 } from '@chakra-ui/react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 
-import { BiUser } from 'react-icons/bi'
+import { BiUser, BiLogIn } from 'react-icons/bi'
 import { AiFillHome, AiOutlineSearch, AiFillHeart  } from 'react-icons/ai'
 import { HiFilter } from 'react-icons/hi'
 import { BsFillBookmarkFill } from 'react-icons/bs'
@@ -26,9 +28,19 @@ const CustomIcon = React.forwardRef(({ children, ...rest }, ref) => (
 ))
 
 const Navbar = () => {
+  const [user, setUser] = useState(localStorage.getItem('profile'))
   const searchModal = useDisclosure()
   const filterModal = useDisclosure()
   const navigate = useNavigate()
+  const location = useLocation()
+
+  useEffect(() => {
+    const user = localStorage.getItem('profile')
+
+    if (user) {
+      setUser(user)
+    }
+  }, [location])
 
   return (
     <Box 
@@ -131,23 +143,35 @@ const Navbar = () => {
             color={'black'}
             opacity={0.4}
           >
-            <ListItem
-              backgroundColor={'white'}
-              borderRadius={'50%'}
-              width={'2rem'}
-              height={'2rem'}
-              display={'flex'}
-              justifyContent={'center'}
-              alignItems={'center'}
-              _hover={navIconsHover}
-              onClick={() => {
-                navigate('/profile')
-              }}
-            >
+            {
+              user ?
+              <ListItem
+                backgroundColor={'white'}
+                borderRadius={'50%'}
+                width={'2rem'}
+                height={'2rem'}
+                display={'flex'}
+                justifyContent={'center'}
+                alignItems={'center'}
+                _hover={navIconsHover}
+                onClick={() => {
+                  navigate('/profile')
+                }}
+              >
                 <Tooltip label='profile'>
                   <CustomIcon><BiUser /></CustomIcon>
                 </Tooltip>
-            </ListItem>
+              </ListItem> :
+              <Button
+                  w={'100%'}
+                  onClick={() => {
+                    navigate('/auth')
+                  }}
+                >
+                  <BiLogIn />
+                  <Text>Log In</Text>
+              </Button>
+            }
           </List>
         </Box>
       </Container>
