@@ -10,7 +10,7 @@ import {
 
 import { ActivityCard } from '../index'
 
-import { testCards } from '../../contstants'
+import { testCards } from '../../constants'
 
 const Hero = () => {
   return (
