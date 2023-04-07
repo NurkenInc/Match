@@ -7,6 +7,7 @@ import Specifics from './Specifics/Specifics'
 import SearchModal from './Modal/SearchModal'
 import FilterModal from './Modal/FilterModal'
 import ActivityList from './ActivityList/ActivityList'
+import AuthForm from './AuthForm/AuthForm'
 
 export {
   Logotype,
@@ -18,4 +19,5 @@ export {
   SearchModal,
   FilterModal,
   ActivityList,
+  AuthForm,
 }
