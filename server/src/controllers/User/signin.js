@@ -1,4 +1,4 @@
-import { User } from '../../models'
+import { User } from '../../models/index.js'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
@@ -12,13 +12,13 @@ const signin = async (req, res) => {
       return res.status(404).json({ message: 'User doesn\'t exist' })
     }
 
-    const isPasswordCorrect = bcrypt.compare(user.password, password)
+    const isPasswordCorrect = await bcrypt.compare(password, user.password)
 
     if (!isPasswordCorrect) {
       return res.status(400).json({ message: 'Invalid credentials' })
     }
 
-    const secret = GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET
+    const secret = process.env.GOOGLE_CLIENT_SECRET
 
     const token = jwt.sign({ email: user.email, id: user._id }, secret, { expiresIn: '3h' })
 
