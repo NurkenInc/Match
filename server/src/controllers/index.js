@@ -1,12 +1,13 @@
-import createActivityCard from './ActivityCard/createActivityCard'
-import deleteActivityCard from './ActivityCard/deleteActivityCard'
-import getActivityCard from './ActivityCard/getActivityCard'
-import getActivityCards from './ActivityCard/getActivityCards'
-import likeActivityCard from './ActivityCard/likeActivityCard'
-import updateActivityCard from './ActivityCard/updateActivityCard'
+import createActivityCard from './ActivityCard/createActivityCard.js'
+import deleteActivityCard from './ActivityCard/deleteActivityCard.js'
+import getActivityCard from './ActivityCard/getActivityCard.js'
+import getActivityCards from './ActivityCard/getActivityCards.js'
+import likeActivityCard from './ActivityCard/likeActivityCard.js'
+import updateActivityCard from './ActivityCard/updateActivityCard.js'
 
-import signin from './User/signin'
-import signup from './User/signup'
+import signin from './User/signin.js'
+import signup from './User/signup.js'
+import role from './User/role.js'
 
 export {
   createActivityCard,
@@ -16,5 +17,6 @@ export {
   likeActivityCard,
   updateActivityCard,
   signin,
-  signup
+  signup,
+  role,
 }
