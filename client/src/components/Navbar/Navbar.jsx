@@ -8,10 +8,14 @@ import {
   useColorModeValue,
   useDisclosure,
   Button,
-  Text
+  Text,
+  useToast,
+  position
 } from '@chakra-ui/react'
 import { useNavigate, useLocation } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 
+import { getUserRole } from '../../actions/user'
 import { BiUser, BiLogIn } from 'react-icons/bi'
 import { AiFillHome, AiOutlineSearch, AiFillHeart  } from 'react-icons/ai'
 import { HiFilter } from 'react-icons/hi'
@@ -28,26 +32,37 @@ const CustomIcon = React.forwardRef(({ children, ...rest }, ref) => (
 ))
 
 const Navbar = () => {
-  const [user, setUser] = useState(localStorage.getItem('profile'))
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile'))?.token)
+  const userRole = useSelector((state) => state.user)
+
   const searchModal = useDisclosure()
   const filterModal = useDisclosure()
+  const createActivityCardModal = useDisclosure()
+  const toast = useToast()
   const navigate = useNavigate()
   const location = useLocation()
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    const user = localStorage.getItem('profile')
+    const user = JSON.parse(localStorage.getItem('profile'))?.token
 
     if (user) {
       setUser(user)
     }
   }, [location])
 
+  useEffect(() => {
+    if(user) {
+      dispatch(getUserRole())
+    }
+  }, [])
+
   return (
     <Box 
       as='nav' 
       position={'fixed'} 
-      w={'100%'} 
-      zIndex={2} 
+      w={'100%'}
+      zIndex={2}
       css={{ backdropFilter: 'blur(10px)' }}
       bg={useColorModeValue('#20202380', '#ffffff40')}
     >
@@ -65,7 +80,7 @@ const Navbar = () => {
           px={8}
           borderTopRadius={'30px'}
           borderRightRadius={'30px'}
-          >
+          > 
           <Box
             cursor={'default'}
             p={2}
@@ -123,7 +138,18 @@ const Navbar = () => {
               </ListItem>
               <ListItem 
                 cursor={'pointer'}
-                _hover={navIconsHover}  
+                _hover={navIconsHover}
+                onClick={() => {
+                  if (!user) {
+                    toast({
+                      title: 'You aren\'t logged in',
+                      status: 'error',
+                      position: 'top',
+                      duration: 700,
+                      isClosable: true,
+                    })
+                  }
+                }}
               >
                 {/* make filter by liked */}
                   <Tooltip label='Saved'>
@@ -143,6 +169,13 @@ const Navbar = () => {
             color={'black'}
             opacity={0.4}
           >
+            {
+              <Button
+                w={'100%'}
+              >
+                Create post
+              </Button>
+            }
             {
               user ?
               <ListItem
