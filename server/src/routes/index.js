@@ -1,5 +1,5 @@
-import userRoutes from './user'
-import activityCardRoutes from './activityCards'
+import userRoutes from './user.js'
+import activityCardRoutes from './activityCards.js'
 
 export {
   userRoutes,
