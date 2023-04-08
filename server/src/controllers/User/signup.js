@@ -1,10 +1,10 @@
-import { User } from '../../models'
+import { User } from '../../models/index.js'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
 const signup = async (req, res) => {
   const { email, password, firstname, lastname, confirmPassword } = req.body
-  
+
   try {
     const user = await User.findOne({ email })
 
@@ -16,11 +16,11 @@ const signup = async (req, res) => {
       return res.status(400).json({ message: 'Passwords doesn\'t match' })
     }
 
-    const hashedPassword = bcrypt.hash(password, 12)
+    const hashedPassword = await bcrypt.hash(password, 12)
 
-    const result = User.create({ email: email, password: hashedPassword, name: `${firstname} ${lastname}` })
+    const result = await User.create({ email: email, password: hashedPassword, name: `${firstname} ${lastname}` })
 
-    const secret = GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET
+    const secret = process.env.GOOGLE_CLIENT_SECRET
 
     const token = jwt.sign({ email: result.email, id: result._id }, secret, { expiresIn: '3h' })
 
