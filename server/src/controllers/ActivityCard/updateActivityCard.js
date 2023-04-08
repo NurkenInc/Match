@@ -1,7 +1,7 @@
 import express from 'express'
 import mongoose from 'mongoose'
 
-import { ActivityCard } from '../../models'
+import { ActivityCard } from '../../models/index.js'
 
 const updateActivityCard = async (req, res) => {
   const { id } = req.params
