@@ -170,11 +170,13 @@ const Navbar = () => {
             opacity={0.4}
           >
             {
-              <Button
-                w={'100%'}
-              >
-                Create post
-              </Button>
+              userRole.data === 'copywriter' && (
+                <Button
+                  w={'100%'}
+                >
+                  Create post
+                </Button>
+              )
             }
             {
               user ?
