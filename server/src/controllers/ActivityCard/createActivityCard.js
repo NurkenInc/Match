@@ -1,7 +1,7 @@
 import express from 'express'
 import mongoose from 'mongoose'
 
-import { ActivityCard } from '../../models'
+import { ActivityCard } from '../../models/index.js'
 
 const createActivityCard = async (req, res) => {
   const { card } = req.body
@@ -12,7 +12,7 @@ const createActivityCard = async (req, res) => {
     await newActivityCard.save()
 
     res.status(201).json({ 
-      data: activityCard
+      data: newActivityCard
     })
 
   } catch (error) {

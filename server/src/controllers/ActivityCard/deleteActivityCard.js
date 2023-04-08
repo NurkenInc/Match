@@ -1,7 +1,7 @@
 import express from 'express'
 import mongoose from 'mongoose'
 
-import { ActivityCard } from '../../models'
+import { ActivityCard } from '../../models/index.js'
 
 const deleteActivityCard = async (req, res) => {
   const { id } = req.params
@@ -18,4 +18,4 @@ const deleteActivityCard = async (req, res) => {
   }
 }
 
-export default createActivityCard
+export default deleteActivityCard
