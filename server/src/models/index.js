@@ -1,5 +1,5 @@
-import ActivityCard from './activityCard'
-import User from './user'
+import ActivityCard from './ActivityCard.js'
+import User from './User.js'
 
 export {
   ActivityCard,
