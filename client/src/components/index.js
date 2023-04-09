@@ -8,6 +8,7 @@ import SearchModal from './Modal/SearchModal'
 import FilterModal from './Modal/FilterModal'
 import ActivityList from './ActivityList/ActivityList'
 import AuthForm from './AuthForm/AuthForm'
+import CreateActivityCardModal from './Modal/CreateActivityCardModal'
 
 export {
   Logotype,
@@ -20,4 +21,5 @@ export {
   FilterModal,
   ActivityList,
   AuthForm,
+  CreateActivityCardModal,
 }
