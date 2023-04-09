@@ -32,9 +32,9 @@ const Specifics = ({ title, text }) => {
         <List>
         {
           typeof(text) === 'string' ?
-          text :
+          <Text>{text}</Text> :
           text.map((item, index) => (
-              <ListItem>
+              <ListItem key={item + index}>
                 <Text color={'blackAlpha.800'}>
                   {index}. {item}
                 </Text>
