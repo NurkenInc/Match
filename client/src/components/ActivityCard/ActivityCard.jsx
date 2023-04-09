@@ -18,7 +18,7 @@ import { BsFillBookFill } from 'react-icons/bs'
 import { checkImageURL } from '../../utils'
 // import { gradient01 } from '../../styles'
 
-const ActivityCard = ({ id, image, title, employerName, employerLogo, text, requirements, responsibilities, benefits, link, country, type, time, position }) => {
+const ActivityCard = ({ id, image, title, employerName, employerLogo, text, requirements, responsibilities, benefits, link, country, activityType, timeType, position }) => {
   const navigate = useNavigate()
 
   const getTextWithoutEnd = (text) => {
@@ -35,11 +35,14 @@ const ActivityCard = ({ id, image, title, employerName, employerLogo, text, requ
   }
 
   const getTextEnd = (text) => {
+
     const sentencesArr = text.split('.')
-    
+
+    if(sentencesArr.length === 1) return text
+
     const result = `${sentencesArr[sentencesArr.length - 2]}.`
     
-    return result.length > 45 ? result.substring(0, 45) + '...' : result + '..'
+    return truncateText(result, 45)
   }
 
   const handleReadMoreClick = () => {
@@ -56,11 +59,15 @@ const ActivityCard = ({ id, image, title, employerName, employerLogo, text, requ
           benefits, 
           link, 
           country, 
-          type, 
-          time, 
+          activityType, 
+          timeType, 
           position
       } } 
     )
+  }
+
+  const truncateText = (text, length) => {
+    return text.length > length ? `${text.slice(0, length)}...` : text
   }
 
   const handleCardClick = () => {
@@ -90,7 +97,7 @@ const ActivityCard = ({ id, image, title, employerName, employerLogo, text, requ
             <Box
               display={'flex'}
               alignItems={'center'}
-              justifyContent={'space-between'}
+              justifyContent={'flex-start'}
             >
               <Button
                 borderRadius={'50%'}
@@ -107,14 +114,14 @@ const ActivityCard = ({ id, image, title, employerName, employerLogo, text, requ
                 py={1}
                 fontSize={'24px'}
               >
-                {employerName}
+                {truncateText(employerName, 15)}
               </Heading>
             </Box>
             <Heading
               color={'orange.800'}
               py={2}
             >
-              {position}
+              {truncateText(position, 30)}
             </Heading>
             <Box 
               display={'flex'}
@@ -124,19 +131,19 @@ const ActivityCard = ({ id, image, title, employerName, employerLogo, text, requ
               py={4}
             >
               <FaFilter />
-              <Text>{type} | {time}</Text>
+              <Text>{activityType} | {timeType}</Text>
             </Box>
             <Text>{getTextWithoutEnd(title)}</Text>
             <Box 
               display={'flex'}
               alignItems={'center'}
-              justifyContent={'center'}
+              justifyContent={'flex-start'}
             >
               <Button
                 borderRadius={'15px'}
                 backgroundColor={'rgb(215 166 85)'}
                 px={0}
-                m={2}
+                my={2}
               >
                 <AiFillLike 
                   color={'white'}
@@ -144,7 +151,7 @@ const ActivityCard = ({ id, image, title, employerName, employerLogo, text, requ
                   size={'1rem'}
                 />
               </Button>
-              <Text>{getTextEnd(title)}</Text>
+              <Text>{getTextEnd(title) === getTextWithoutEnd(title) ? '' : getTextEnd(title)}</Text>
             </Box>
           </CardBody>
           <CardFooter pt={0} backgroundColor={'white'} borderBottomRadius={'30px'}>
