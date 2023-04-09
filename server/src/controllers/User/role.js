@@ -22,11 +22,11 @@ const role = async (req, res) => {
     const user = await User.findById(id)
 
     const role = user.Role
-
     res.status(200).json({ 
       role
     })
   } catch (error) {
+    console.log(error)
     res.status(500).json({ message: 'Something went wrong' })
   }
 }
