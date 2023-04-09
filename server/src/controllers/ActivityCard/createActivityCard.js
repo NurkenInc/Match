@@ -4,7 +4,7 @@ import mongoose from 'mongoose'
 import { ActivityCard } from '../../models/index.js'
 
 const createActivityCard = async (req, res) => {
-  const { card } = req.body
+  const card = req.body
 
   const newActivityCard = new ActivityCard({ ...card, creator: req.userId, createdAt: new Date().toISOString() })
 
