@@ -11,7 +11,7 @@ export const getUserRole = () => {
 
     try {
       const { data } = await api.fetchUserRole()
-
+      
       const role = data.role
 
       dispatch({
