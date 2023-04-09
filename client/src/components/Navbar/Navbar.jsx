@@ -14,14 +14,16 @@ import {
 } from '@chakra-ui/react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
+import decode from 'jwt-decode'
 
+import { logout } from '../../actions/auth'
 import { getUserRole } from '../../actions/user'
 import { BiUser, BiLogIn } from 'react-icons/bi'
 import { AiFillHome, AiOutlineSearch, AiFillHeart  } from 'react-icons/ai'
 import { HiFilter } from 'react-icons/hi'
 import { BsFillBookmarkFill } from 'react-icons/bs'
 
-import { Logotype, FilterModal, SearchModal } from '../index'
+import { Logotype, FilterModal, SearchModal, CreateActivityCardModal } from '../index'
 
 import { navIconsHover } from '../../styles' 
 
@@ -43,10 +45,25 @@ const Navbar = () => {
   const location = useLocation()
   const dispatch = useDispatch()
 
+  const logoutUser = () => {
+    dispatch(logout())
+
+    navigate('/')
+
+    setUser(null)
+  }
+
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('profile'))?.token
 
     if (user) {
+      const decodedToken  = decode(user)
+
+      if(decodedToken.exp * 1000 < new Date().getTime()) {
+        logoutUser()
+        return
+      }
+
       setUser(user)
     }
   }, [location])
@@ -163,8 +180,8 @@ const Navbar = () => {
           <List
             display={'flex'}
             justifyContent={'center'}
+            gap={4}
             alignContent={'center'}
-            gap={8}
             fontFamily={'Panoptica-SansBold'}
             color={'black'}
             opacity={0.4}
@@ -172,7 +189,8 @@ const Navbar = () => {
             {
               userRole.data === 'copywriter' && (
                 <Button
-                  w={'100%'}
+                  w={'70%'}
+                  onClick={createActivityCardModal.onOpen}
                 >
                   Create post
                 </Button>
@@ -212,6 +230,7 @@ const Navbar = () => {
       </Container>
       <FilterModal isOpen={filterModal.isOpen} onClose={filterModal.onClose} />
       <SearchModal isOpen={searchModal.isOpen} onClose={searchModal.onClose} />
+      <CreateActivityCardModal isOpen={createActivityCardModal.isOpen} onClose={createActivityCardModal.onClose} />
     </Box>
   )
 }
