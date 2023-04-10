@@ -49,7 +49,7 @@ const activityCards = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
-        activityCards: [...state.activityCards, action.payload]
+        activityCards: [...state.activityCards, action.payload],
       }
     case UPDATE_ACTIVITY_CARD_SUCCESS:
       return {
