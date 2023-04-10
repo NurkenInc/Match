@@ -10,7 +10,11 @@ import {
   Button,
   Text,
   useToast,
-  position
+  position,
+  Menu,
+  MenuList,
+  MenuItem,
+  MenuButton
 } from '@chakra-ui/react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
@@ -36,6 +40,7 @@ const CustomIcon = React.forwardRef(({ children, ...rest }, ref) => (
 const Navbar = () => {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile'))?.token)
   const userRole = useSelector((state) => state.user)
+  const auth = useSelector((state) => state.auth)
 
   const searchModal = useDisclosure()
   const filterModal = useDisclosure()
@@ -52,8 +57,9 @@ const Navbar = () => {
 
     setUser(null)
   }
+  console.log('navrerender')
 
-  useEffect(() => {
+  const getToken = () => {
     const user = JSON.parse(localStorage.getItem('profile'))?.token
 
     if (user) {
@@ -66,9 +72,14 @@ const Navbar = () => {
 
       setUser(user)
     }
-  }, [location])
+  }
 
   useEffect(() => {
+    getToken()
+  }, [location, auth.data])
+  
+  useEffect(() => {
+    getToken()
     if(user) {
       dispatch(getUserRole())
     }
@@ -187,7 +198,7 @@ const Navbar = () => {
             opacity={0.4}
           >
             {
-              userRole.data === 'copywriter' && (
+              userRole.data === 'copywriter' && user && (
                 <Button
                   w={'70%'}
                   onClick={createActivityCardModal.onOpen}
@@ -208,17 +219,24 @@ const Navbar = () => {
                 alignItems={'center'}
                 _hover={navIconsHover}
                 onClick={() => {
-                  navigate('/profile')
+                  navigate('/')
                 }}
               >
-                <Tooltip label='profile'>
-                  <CustomIcon><BiUser /></CustomIcon>
-                </Tooltip>
+                <Menu>
+                    <MenuButton>
+                      <Tooltip label='profile'>
+                        <CustomIcon><BiUser /></CustomIcon>
+                      </Tooltip>
+                    </MenuButton>
+                  <MenuList>
+                    <MenuItem onClick={logoutUser}>Logout</MenuItem>  
+                  </MenuList>
+                </Menu>
               </ListItem> :
               <Button
                   w={'100%'}
                   onClick={() => {
-                    navigate('/auth')
+                      navigate('/auth')
                   }}
                 >
                   <BiLogIn />
