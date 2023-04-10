@@ -17,7 +17,8 @@ import {
   Radio,
   RadioGroup,
   Stack,
-  Textarea
+  Textarea,
+  useToast
 } from '@chakra-ui/react'
 import moment from 'moment'
 import { useNavigate } from 'react-router'
@@ -28,7 +29,7 @@ import { createActivityCard } from '../../actions/activityCards'
 
 
 const initialState = {
-  activityType: 'Computer Science',
+  activityType: '',
   timeType: '',
   requirements: [],
   benefits: [],
@@ -49,16 +50,19 @@ const CreateActivityCardModal = ({ isOpen, onClose }) => {
   const [requirements, setRequirements] = useState([''])
   const [benefits, setBenefits] = useState([''])
   const [responsibilities, setResponsibilities] = useState([''])
-  
+  const [invalidInput, setInvalidInput] = useState([])
+  const [inputError, setInpurError] = useState('')
+
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  
+  const toast = useToast()
+
   useEffect(() => {
     if(isOpen === false) {
       setRequirements([''])
       setResponsibilities([''])
       setBenefits([''])
-      setForm('')
+      setForm(initialState)
     }
   }, [isOpen])
 
@@ -88,20 +92,52 @@ const CreateActivityCardModal = ({ isOpen, onClose }) => {
     setForm({...form, timeType: value })
   }
 
-  const isInputValid = (inputName) => {
-    return form[inputName] !== ''
+  const isInputInvalid = (name) => {
+    return invalidInput.includes(name)
   }
 
-  const validateForm = () => {
+  const removeInvalidInput = (name) => {
+    setInvalidInput(invalidInput.filter((item) => item !== name))
+  }
+
+  const isFormValid = () => {
+    const optionalFields = ['image', 'employerLogo']
     
+    return !Object.keys(form).some((item) => {
+      if(form[item] === '' || form[item] === null  && !optionalFields.includes(item)) {
+        setInvalidInput([...invalidInput, item])
+        setInpurError('this input is empty')
+        console.log(item)
+        return true
+      }
+    })
   }
 
   const createPost = () => {
-    setForm({...form, requirements, responsibilities, benefits })
+    if(!isFormValid()) {
+      toast({
+        title: 'Empty inputs',
+        position: 'top',
+        description: "Not all required inputs are filled",
+        status: 'error',
+        duration: 1200,
+        isClosable: true,
+      })
+      return
+    }
 
+    setForm({...form, requirements, responsibilities, benefits })
     dispatch(createActivityCard(form))
     onClose()
     navigate('/')
+    toast({
+      title: 'Success',
+      position: 'top',
+      description: "Post created successfully",
+      status: 'success',
+      duration: 1200,
+      isClosable: true,
+    })
   }
 
   return (
@@ -118,34 +154,82 @@ const CreateActivityCardModal = ({ isOpen, onClose }) => {
             </FormControl>
             <FormControl>
               <FormLabel>Enter opportunity title:</FormLabel>
-              <Input name='title' onChange={(e) => { handleChange(e) }} />
+              <Input 
+                isInvalid={isInputInvalid('title')} 
+                name='title' 
+                onChange={(e) => { 
+                  handleChange(e) 
+                  removeInvalidInput(e.target.name)
+                }}
+              />
             </FormControl>
             <FormControl>
               <FormLabel>Enter opportunity text:</FormLabel>
-              <Textarea name='text' onChange={(e) => { handleChange(e) }} />
+              <Textarea
+                isInvalid={isInputInvalid('text')} 
+                name='text' 
+                onChange={(e) => { 
+                  handleChange(e) 
+                  removeInvalidInput(e.target.name)
+                }}
+              />
             </FormControl>
             <FormControl>
               <FormLabel>Organization name:</FormLabel>
-              <Input name='employerName' onChange={(e) => { handleChange(e) }} />
+              <Input 
+                isInvalid={isInputInvalid('employerName')} 
+                name='employerName' 
+                onChange={(e) => { 
+                  handleChange(e) 
+                  removeInvalidInput(e.target.name)
+                }}
+              />
             </FormControl>
             <FormControl>
               <FormLabel>Organization logo url(optional):</FormLabel>
-              <Input name='employerLogo' onChange={(e) => { handleChange(e) }} />
+              <Input 
+                name='employerLogo' 
+                onChange={(e) => { 
+                  handleChange(e) 
+                }}
+              />
             </FormControl>
             <FormControl>
               <FormLabel>Position in team(profession):</FormLabel>
-              <Input name='position' onChange={(e) => { handleChange(e) }} />
+              <Input 
+                isInvalid={isInputInvalid('position')} 
+                name='position' 
+                onChange={(e) => { 
+                  handleChange(e) 
+                  removeInvalidInput(e.target.name)
+                }}
+              />
             </FormControl>
             <FormControl>
               <FormLabel>Opportunity country:</FormLabel>
-              <Input name='country' onChange={(e) => { handleChange(e) }} />
+              <Input 
+                isInvalid={isInputInvalid('country')} 
+                name='country' 
+                onChange={(e) => { 
+                  handleChange(e) 
+                  removeInvalidInput(e.target.name)
+                }}
+              />
             </FormControl>
             <FormControl>
               <FormLabel>Link to opportunity:</FormLabel>
-              <Input name='link' onChange={(e) => { handleChange(e) }} />
+              <Input 
+                isInvalid={isInputInvalid('link')} 
+                name='link' 
+                onChange={(e) => { 
+                  handleChange(e) 
+                  removeInvalidInput(e.target.name)
+                }}
+              />
             </FormControl>
             <FormControl>
               <FormLabel>Enter requirements list:</FormLabel>
+              {/* rewrite it to function that generate this data {requirements} */}
               {
                 Array(requirements.length).fill('').map((item, index) => (
                   <Box key={item + index} display={'flex'} py={1}>
@@ -224,7 +308,15 @@ const CreateActivityCardModal = ({ isOpen, onClose }) => {
             </FormControl>
             
             <FormLabel>Select activity type:</FormLabel>
-              <Select name='activityType' placeholder='Select option' onChange={(e) => { handleChange(e) }}>
+              <Select 
+                isInvalid={isInputInvalid('activityType')} 
+                name='activityType' 
+                placeholder='Select option' 
+                onChange={(e) => { 
+                  handleChange(e) 
+                  removeInvalidInput(e.target.name)
+                }}
+              >
                 {
                   activityTypes.map((item, index) => (
                     <option key={index} value={item}>{item}</option>
@@ -232,18 +324,34 @@ const CreateActivityCardModal = ({ isOpen, onClose }) => {
                 }
               </Select>
             <FormLabel pt={2}>Select time type:</FormLabel>
-            <RadioGroup name='timeType' onChange={(value) => { handleRadio(value) }}>
+            <RadioGroup  
+              name='timeType' 
+              onChange={(value) => { 
+                handleRadio(value) 
+                removeInvalidInput('timeType')
+              }}
+            >
               <Stack gap={4} direction={'col'}>
                 {
                   timeTypes.map((item, index) => (
-                    <Radio key={index} value={item}>{item}</Radio>
-                  ))                    
+                    <Radio isInvalid={isInputInvalid('timeType')} key={index} value={item}>{item}</Radio>
+                  ))             
                 }
               </Stack>
             </RadioGroup>
             <FormControl>
               <FormLabel>Opportunity deadlines:</FormLabel>
-              <Input name='deadline' max={'2025-01-01'} min={'2023-01-01'} type={'date'} onChange={(e) => { handleDate(e) }} />
+              <Input 
+                name='deadline' 
+                isInvalid={isInputInvalid('deadline')}
+                max={'2025-01-01'} 
+                min={'2023-01-01'} 
+                type={'date'} 
+                onChange={(e) => { 
+                  handleDate(e) 
+                  removeInvalidInput(e.target.name)
+                }} 
+              />
             </FormControl>
           </Box>
         </ModalBody>
