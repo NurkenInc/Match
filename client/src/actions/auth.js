@@ -16,11 +16,13 @@ export const signin = (formData) => {
       const { data } = await api.signIn(formData)
 
       const token = data.token
+      const id = data.result._id
 
       dispatch({
         type: AUTH_SUCCESS,
         payload: {
-          token
+          token,
+          id
         }
       })
     } catch (error) {
@@ -35,13 +37,15 @@ export const signup = (formData) => {
   
     try {
       const { data } = await api.signUp(formData)
-
+      
       const token = data.token
+      const id = data.result._id
 
       dispatch({
         type: AUTH_SUCCESS,
         payload: {
-          token
+          token,
+          id
         }
       })
 
