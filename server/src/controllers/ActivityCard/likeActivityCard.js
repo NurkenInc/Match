@@ -22,7 +22,7 @@ const likeActivityCard = async (req, res) => {
     }
 
     const updatedPost = await ActivityCard.findByIdAndUpdate(id, activityCard, { new: true })
-
+    
     res.status(200).json({ 
       data: updatedPost
     })
