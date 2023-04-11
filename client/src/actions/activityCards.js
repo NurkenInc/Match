@@ -23,8 +23,12 @@ export const getActivityCards = () => {
         type: FETCH_ACTIVITY_CARDS_SUCCESS,
         payload: { data, currentPage, numberOfPages }
       })
+
+      return data
     } catch (error) {
       dispatch({ type: ACTIVITY_CARD_FAILURE, payload: error })     
+
+      throw error
     }
   }
 }
@@ -41,8 +45,12 @@ export const getActivityCard = (id) => {
         type: FETCH_ACTIVITY_CARD_SUCCESS,
         payload: data
       })
+
+      return data
     } catch (error) {
       dispatch({ type: ACTIVITY_CARD_FAILURE, payload: error })     
+
+      throw error
     }
   }
 }
@@ -59,8 +67,12 @@ export const createActivityCard = (card) => {
         type: CREATE_ACTIVITY_CARD_SUCCESS,
         payload: data
       })
+
+      return data
     } catch (error) {
       dispatch({ type: ACTIVITY_CARD_FAILURE, payload: error })     
+
+      throw error
     }
   }
 }
@@ -77,8 +89,12 @@ export const deleteActivityCard = (id) => {
         type: DELETE_ACTIVITY_CARD_SUCCESS,
         payload: id
       })
+
+      return { message: 'success' }
     } catch (error) {
       dispatch({ type: ACTIVITY_CARD_FAILURE, payload: error })
+
+      throw error
     }
   }
 }
@@ -93,10 +109,14 @@ export const updateActivityCard = (id, card) => {
 
       dispatch({
         type: UPDATE_ACTIVITY_CARD_SUCCESS,
-        payload: data
+        payload: data.data
       })
+
+      return data
     } catch (error) {
       dispatch({ type: ACTIVITY_CARD_FAILURE, payload: error })
+    
+      throw error
     }
   }
 }
@@ -110,13 +130,18 @@ export const likeActivityCard = (id) => {
     try {
 
       const { data } = await api.likeActivityCard(id, user?.token)
-
+      
       dispatch({
         type: LIKE_ACTIVITY_CARD_SUCCESS,
-        payload: data
+        payload: data.data
       })
+
+      
+      return data
     } catch (error) {
       dispatch({ type: ACTIVITY_CARD_FAILURE, payload: error })
+      
+      throw error
     }
   }
 }
