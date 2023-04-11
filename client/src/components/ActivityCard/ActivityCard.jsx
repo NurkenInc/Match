@@ -8,18 +8,30 @@ import {
   Text,
   Button,
   Image,
+  useDisclosure
 } from '@chakra-ui/react'
 import { useNavigate } from 'react-router'
+import { useDispatch, useSelector } from 'react-redux'
 
+import { likeActivityCard } from '../../actions/activityCards'
 import { AiOutlineShareAlt, AiFillLike } from 'react-icons/ai' 
 import { FaFilter } from 'react-icons/fa'
 import { BsFillBookFill } from 'react-icons/bs'
 
 import { checkImageURL } from '../../utils'
+
+import { CreateActivityCardModal } from '../index'
+
 // import { gradient01 } from '../../styles'
 
-const ActivityCard = ({ id, image, title, employerName, employerLogo, text, requirements, responsibilities, benefits, link, country, activityType, timeType, position }) => {
+const ActivityCard = ({ likes, deadline, creator, id, image, title, employerName, employerLogo, text, requirements, responsibilities, benefits, link, country, activityType, timeType, position }) => {
+  const user = JSON.parse(localStorage.getItem('profile'))
+  const userRole = useSelector((state) => state.user)
+
+  const { isOpen, onClose, onOpen } = useDisclosure()
   const navigate = useNavigate()
+  const dispatch = useDispatch()
+
 
   const getTextWithoutEnd = (text) => {
     const sentencesArr = text.split('.')
@@ -61,9 +73,14 @@ const ActivityCard = ({ id, image, title, employerName, employerLogo, text, requ
           country, 
           activityType, 
           timeType, 
-          position
+          position,
+          deadline
       } } 
     )
+  }
+
+  const handleLikeClick = () => {
+    dispatch(likeActivityCard(id))
   }
 
   const truncateText = (text, length) => {
@@ -74,10 +91,6 @@ const ActivityCard = ({ id, image, title, employerName, employerLogo, text, requ
 
   }
 
-  const handleLikeClick = () => {
-
-  }
-  
   return (
     <Box 
       width={'20rem'} 
@@ -98,6 +111,7 @@ const ActivityCard = ({ id, image, title, employerName, employerLogo, text, requ
               display={'flex'}
               alignItems={'center'}
               justifyContent={'flex-start'}
+              gap={1}
             >
               <Button
                 borderRadius={'50%'}
@@ -142,21 +156,24 @@ const ActivityCard = ({ id, image, title, employerName, employerLogo, text, requ
               <Button
                 borderRadius={'15px'}
                 backgroundColor={'rgb(215 166 85)'}
+                onClick={handleLikeClick}
                 px={0}
                 my={2}
+                color={likes.includes(user?.id) ? 'black' : 'white'}
               >
-                <AiFillLike 
-                  color={'white'}
+                <AiFillLike
                   opacity={1}
                   size={'1rem'}
                 />
+                <Text>
+                  {likes.length}
+                </Text>
               </Button>
               <Text>{getTextEnd(title) === getTextWithoutEnd(title) ? '' : getTextEnd(title)}</Text>
             </Box>
           </CardBody>
-          <CardFooter pt={0} backgroundColor={'white'} borderBottomRadius={'30px'}>
+          <CardFooter pt={0} gap={4} backgroundColor={'white'} borderBottomRadius={'30px'}>
             <Button
-              // colorScheme='yellow'
               bgColor={'rgb(215 166 85)'}
               onClick={handleReadMoreClick}
             >
@@ -169,11 +186,54 @@ const ActivityCard = ({ id, image, title, employerName, employerLogo, text, requ
                 <Text>
                   Read more
                 </Text>
-                <BsFillBookFill />
+                <BsFillBookFill color={'#fce57e'} />
               </Box>
             </Button>
+            {
+              userRole?.data === 'copywriter' && creator === user?.id && (
+                <Button
+                  opacity={0.8}
+                  colorScheme='teal'
+                  fontFamily={'Panoptica-SansBold'}
+                  onClick={onOpen}
+                >
+                  <Box 
+                    display={'flex'}
+                    justifyContent={'space-between'}
+                    alignItems={'center'}
+                    gap={2}
+                  >
+                    <Text>
+                      Edit
+                    </Text>
+                  </Box>
+                </Button>
+              )
+            }
           </CardFooter>
       </Card>
+      <CreateActivityCardModal 
+        isOpen={isOpen} 
+        onClose={onClose} 
+        isCreate={false}
+        id={id}
+        card={{
+          activityType,
+          timeType,
+          requirements,
+          benefits,
+          responsibilities,
+          country,
+          employerLogo,
+          image,
+          employerName,
+          title,
+          text,
+          deadline,
+          position,
+          link
+        }} 
+      />
     </Box>
   )
 }
