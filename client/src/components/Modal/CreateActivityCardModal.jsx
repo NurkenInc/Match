@@ -25,7 +25,7 @@ import { useNavigate } from 'react-router'
 import { useDispatch } from 'react-redux'
 
 import { activityTypes, timeTypes } from '../../constants'
-import { createActivityCard } from '../../actions/activityCards'
+import { createActivityCard, updateActivityCard } from '../../actions/activityCards'
 
 
 const initialState = {
@@ -45,7 +45,7 @@ const initialState = {
   link: ''
 }
 
-const CreateActivityCardModal = ({ isOpen, onClose }) => {
+const CreateActivityCardModal = ({ isOpen, onClose, isCreate, id, card }) => {
   const [form, setForm] = useState(initialState)
   const [requirements, setRequirements] = useState([''])
   const [benefits, setBenefits] = useState([''])
@@ -57,12 +57,18 @@ const CreateActivityCardModal = ({ isOpen, onClose }) => {
   const dispatch = useDispatch()
   const toast = useToast()
 
+  // console.log(id)
+
   useEffect(() => {
     if(isOpen === false) {
       setRequirements([''])
       setResponsibilities([''])
       setBenefits([''])
-      setForm(initialState)
+      if(isCreate) {
+        setForm(initialState)
+      } else {
+        setForm(card)
+      }
     }
   }, [isOpen])
 
@@ -107,7 +113,6 @@ const CreateActivityCardModal = ({ isOpen, onClose }) => {
       if(form[item] === '' || form[item] === null  && !optionalFields.includes(item)) {
         setInvalidInput([...invalidInput, item])
         setInpurError('this input is empty')
-        console.log(item)
         return true
       }
     })
@@ -127,13 +132,17 @@ const CreateActivityCardModal = ({ isOpen, onClose }) => {
     }
 
     setForm({...form, requirements, responsibilities, benefits })
-    dispatch(createActivityCard(form))
+    if(isCreate) {
+      dispatch(createActivityCard(form))
+    } else {
+      dispatch(updateActivityCard(id, form))
+    }
     onClose()
     navigate('/')
     toast({
       title: 'Success',
       position: 'top',
-      description: "Post created successfully",
+      description: `Post ${isCreate ? 'created' : 'updated'} successfully`,
       status: 'success',
       duration: 1200,
       isClosable: true,
@@ -150,13 +159,14 @@ const CreateActivityCardModal = ({ isOpen, onClose }) => {
           <Box>
             <FormControl>
               <FormLabel>Enter image url(optional):</FormLabel>
-              <Input name='image' onChange={(e) => { handleChange(e) }} />
+              <Input name='image' value={form.image} onChange={(e) => { handleChange(e) }} />
             </FormControl>
             <FormControl>
               <FormLabel>Enter opportunity title:</FormLabel>
               <Input 
                 isInvalid={isInputInvalid('title')} 
-                name='title' 
+                name='title'
+                value={form.title}
                 onChange={(e) => { 
                   handleChange(e) 
                   removeInvalidInput(e.target.name)
@@ -167,7 +177,8 @@ const CreateActivityCardModal = ({ isOpen, onClose }) => {
               <FormLabel>Enter opportunity text:</FormLabel>
               <Textarea
                 isInvalid={isInputInvalid('text')} 
-                name='text' 
+                name='text'
+                value={form.text}
                 onChange={(e) => { 
                   handleChange(e) 
                   removeInvalidInput(e.target.name)
@@ -178,7 +189,8 @@ const CreateActivityCardModal = ({ isOpen, onClose }) => {
               <FormLabel>Organization name:</FormLabel>
               <Input 
                 isInvalid={isInputInvalid('employerName')} 
-                name='employerName' 
+                name='employerName'
+                value={form.employerName}
                 onChange={(e) => { 
                   handleChange(e) 
                   removeInvalidInput(e.target.name)
@@ -188,7 +200,8 @@ const CreateActivityCardModal = ({ isOpen, onClose }) => {
             <FormControl>
               <FormLabel>Organization logo url(optional):</FormLabel>
               <Input 
-                name='employerLogo' 
+                name='employerLogo'
+                value={form.employerLogo}
                 onChange={(e) => { 
                   handleChange(e) 
                 }}
@@ -198,7 +211,8 @@ const CreateActivityCardModal = ({ isOpen, onClose }) => {
               <FormLabel>Position in team(profession):</FormLabel>
               <Input 
                 isInvalid={isInputInvalid('position')} 
-                name='position' 
+                name='position'
+                value={form.position}
                 onChange={(e) => { 
                   handleChange(e) 
                   removeInvalidInput(e.target.name)
@@ -209,7 +223,8 @@ const CreateActivityCardModal = ({ isOpen, onClose }) => {
               <FormLabel>Opportunity country:</FormLabel>
               <Input 
                 isInvalid={isInputInvalid('country')} 
-                name='country' 
+                name='country'
+                value={form.country}
                 onChange={(e) => { 
                   handleChange(e) 
                   removeInvalidInput(e.target.name)
@@ -220,7 +235,8 @@ const CreateActivityCardModal = ({ isOpen, onClose }) => {
               <FormLabel>Link to opportunity:</FormLabel>
               <Input 
                 isInvalid={isInputInvalid('link')} 
-                name='link' 
+                name='link'
+                value={form.link}
                 onChange={(e) => { 
                   handleChange(e) 
                   removeInvalidInput(e.target.name)
@@ -311,7 +327,8 @@ const CreateActivityCardModal = ({ isOpen, onClose }) => {
               <Select 
                 isInvalid={isInputInvalid('activityType')} 
                 name='activityType' 
-                placeholder='Select option' 
+                placeholder='Select option'
+                value={form.activityType} 
                 onChange={(e) => { 
                   handleChange(e) 
                   removeInvalidInput(e.target.name)
@@ -326,6 +343,7 @@ const CreateActivityCardModal = ({ isOpen, onClose }) => {
             <FormLabel pt={2}>Select time type:</FormLabel>
             <RadioGroup  
               name='timeType' 
+              value={form.timeType}
               onChange={(value) => { 
                 handleRadio(value) 
                 removeInvalidInput('timeType')
@@ -363,7 +381,9 @@ const CreateActivityCardModal = ({ isOpen, onClose }) => {
               navigate('/')
             }}
           >
-            Create
+            {
+              isCreate ? 'Create' : 'Update'
+            }
           </Button>
           <Button onClick={onClose} colorScheme='red'>Cancel</Button>
         </ModalFooter>
