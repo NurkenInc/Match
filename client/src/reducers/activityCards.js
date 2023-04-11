@@ -13,6 +13,7 @@ const initialState = {
   isLoading: false,
   activityCards: [],
   currentPage: 1,
+  isUpdated: false,
   numberOfPages: null,
   activityCard: null,
   error: null
@@ -35,9 +36,9 @@ const activityCards = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
-        activityCards: action.payload.data,
-        currentPage: action.payload.currentPage,
-        numberOfPages: action.payload.numberOfPages,
+        activityCards: action.payload.data.data,
+        currentPage: action.payload.data.currentPage,
+        numberOfPages: action.payload.data.numberOfPages,
       }
     case FETCH_ACTIVITY_CARD_SUCCESS:
       return {
@@ -49,7 +50,7 @@ const activityCards = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
-        activityCards: [...state.activityCards, action.payload],
+        activityCards: [...state.activityCards, action.payload.data],
       }
     case UPDATE_ACTIVITY_CARD_SUCCESS:
       return {
