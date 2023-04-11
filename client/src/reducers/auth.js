@@ -27,7 +27,7 @@ const auth = (state = initialState, action) => {
         isLoading: true,
       }
     case AUTH_SUCCESS:
-      localStorage.setItem('profile', JSON.stringify({ token: action.payload.token }))
+      localStorage.setItem('profile', JSON.stringify({ token: action.payload.token, id: action.payload.id }))
 
       return {
         ...state,
