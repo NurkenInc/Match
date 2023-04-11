@@ -11,7 +11,7 @@ const ActivityCardSchema = new Schema({
   timeType: String,
   position: String,
   employerLogo: String,
-  deadlines: Date,
+  deadline: Date,
   text: String,
   requirements: [String],
   responsibilities: [String],
