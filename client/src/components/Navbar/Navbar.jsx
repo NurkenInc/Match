@@ -57,7 +57,6 @@ const Navbar = () => {
 
     setUser(null)
   }
-  console.log('navrerender')
 
   const getToken = () => {
     const user = JSON.parse(localStorage.getItem('profile'))?.token
@@ -248,7 +247,7 @@ const Navbar = () => {
       </Container>
       <FilterModal isOpen={filterModal.isOpen} onClose={filterModal.onClose} />
       <SearchModal isOpen={searchModal.isOpen} onClose={searchModal.onClose} />
-      <CreateActivityCardModal isOpen={createActivityCardModal.isOpen} onClose={createActivityCardModal.onClose} />
+      <CreateActivityCardModal isCreate={true} isOpen={createActivityCardModal.isOpen} onClose={createActivityCardModal.onClose} />
     </Box>
   )
 }
