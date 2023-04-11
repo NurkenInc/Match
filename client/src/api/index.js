@@ -15,7 +15,7 @@ export const fetchActivityCards = (page) => API.get(`/activityCards?page=${page}
 export const createActivityCard = (card) => API.post(`/activityCards`, card)
 export const updateActivityCard = (id, card) => API.patch(`/activityCards/${id}`, card)
 export const deleteActivityCard = (id) => API.delete(`/activityCards/${id}`)
-export const likeActivityCard = (id, userId) => API.patch(`/${id}/likeActivityCard`, userId)
+export const likeActivityCard = (id, userId) => API.patch(`/activityCards/${id}/likeActivityCard`, userId)
 
 export const signIn = (formData) => API.post('/users/signin', formData)
 export const signUp = (formData) => API.post('/users/signup', formData)
