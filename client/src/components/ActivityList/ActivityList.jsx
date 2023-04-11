@@ -20,6 +20,15 @@ const ActivityList = () => {
     dispatch(getActivityCards())
   }, [])
 
+  const sortByDates = (type) => {
+    return activityCards.sort((a, b) => {
+      a = new Date(a.createdAt)
+      b = new Date(b.createdAt)
+      const result = a > b ? -1 : a < b ? 1 : 0
+      return result * type // asc or desc
+    })
+  }
+
   return (
     <Container maxW={'container.xl'}>
       {
@@ -39,8 +48,8 @@ const ActivityList = () => {
           py={8}
         >
           {
-            activityCards.data !== undefined && (
-              activityCards.data.map((item, index) => (
+            activityCards !== undefined && (
+              sortByDates(1).map((item, index) => (
                 <ActivityCard
                   key={item._id}
                   id={item._id}
