@@ -5,17 +5,15 @@ import { ActivityCard } from '../../models/index.js'
 
 const updateActivityCard = async (req, res) => {
   const { id } = req.params
-  const { card } = req.body
+  const card = req.body
 
   if(!req.userId) {
     return res.json('Unauthenticated')
   }
 
   try {
-    const activityCard = await ActivityCard.findById(id)
-
-    const updatedPost = await ActivityCard.findByIdAndUpdate(id, { ...activityCard, ...card }, { new: true })
-
+    const updatedPost = await ActivityCard.findByIdAndUpdate(id, { ...card }, { new: true })
+    
     res.status(200).json({ 
       data: updatedPost
     })
