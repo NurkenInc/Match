@@ -9,6 +9,7 @@ import FilterModal from './Modal/FilterModal'
 import ActivityList from './ActivityList/ActivityList'
 import AuthForm from './AuthForm/AuthForm'
 import CreateActivityCardModal from './Modal/CreateActivityCardModal'
+import ShareButton from './ShareButton/ShareButton'
 
 export {
   Logotype,
@@ -22,4 +23,5 @@ export {
   ActivityList,
   AuthForm,
   CreateActivityCardModal,
+  ShareButton
 }
