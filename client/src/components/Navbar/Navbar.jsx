@@ -127,14 +127,6 @@ const Navbar = () => {
             >
               <ListItem 
                 _hover={navIconsHover} 
-                cursor={'pointer'}>
-                {/* Make filter on recent */}
-                <Tooltip label='Popular'>
-                    <CustomIcon><AiFillHeart /></CustomIcon>
-                  </Tooltip>
-              </ListItem>
-              <ListItem 
-                _hover={navIconsHover} 
                 cursor={'pointer'} 
                 onClick={searchModal.onOpen}
               >
@@ -180,7 +172,7 @@ const Navbar = () => {
               >
                 {/* make filter by liked */}
                   <Tooltip label='Saved'>
-                    <CustomIcon><BsFillBookmarkFill /></CustomIcon>
+                    <CustomIcon><AiFillHeart /></CustomIcon>
                   </Tooltip>
               </ListItem>
             </List>
