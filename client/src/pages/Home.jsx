@@ -33,7 +33,7 @@ const Home = () => {
         />
         <Box background={gradient01}>
           <Hero />
-          <ActivityList />
+          <ActivityList filters={filters} />
         </Box>
       </Box>
     </Box>
