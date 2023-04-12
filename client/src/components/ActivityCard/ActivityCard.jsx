@@ -8,7 +8,8 @@ import {
   Text,
   Button,
   Image,
-  useDisclosure
+  useDisclosure,
+  useToast
 } from '@chakra-ui/react'
 import { useNavigate } from 'react-router'
 import { useDispatch, useSelector } from 'react-redux'
@@ -20,7 +21,7 @@ import { BsFillBookFill } from 'react-icons/bs'
 
 import { checkImageURL } from '../../utils'
 
-import { CreateActivityCardModal } from '../index'
+import { CreateActivityCardModal, ShareButton } from '../index'
 
 // import { gradient01 } from '../../styles'
 
@@ -31,7 +32,7 @@ const ActivityCard = ({ likes, deadline, creator, id, image, title, employerName
   const { isOpen, onClose, onOpen } = useDisclosure()
   const navigate = useNavigate()
   const dispatch = useDispatch()
-
+  const toast = useToast()
 
   const getTextWithoutEnd = (text) => {
     const sentencesArr = text.split('.')
@@ -80,6 +81,16 @@ const ActivityCard = ({ likes, deadline, creator, id, image, title, employerName
   }
 
   const handleLikeClick = () => {
+    if(!user) {
+      toast({
+        title: 'You aren\'t logged in',
+        status: 'error',
+        position: 'top',
+        duration: 700,
+        isClosable: true,
+      })
+      return
+    }
     dispatch(likeActivityCard(id))
   }
 
@@ -113,17 +124,7 @@ const ActivityCard = ({ likes, deadline, creator, id, image, title, employerName
               justifyContent={'flex-start'}
               gap={1}
             >
-              <Button
-                borderRadius={'50%'}
-                backgroundColor={'rgb(215 166 85)'}
-                px={0}
-              >
-                <AiOutlineShareAlt 
-                  color={'white'}
-                  opacity={0.8}
-                  size={'1rem'} 
-                />
-              </Button>
+              <ShareButton url={`https://match.netlify.app/${id}`} />
               <Heading
                 py={1}
                 fontSize={'24px'}
