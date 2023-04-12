@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   Modal,
   ModalOverlay,
@@ -12,6 +12,8 @@ import {
   Stack,
   Select,
   FormLabel,
+  FormHelperText,
+  FormControl,
   Radio,
   RadioGroup
 } from '@chakra-ui/react'
@@ -20,9 +22,22 @@ import { useNavigate } from 'react-router'
 import { activityTypes, timeTypes } from '../../constants' 
 
 const FilterModal = ({ isOpen, onClose }) => {
-  const [activityType, setActivityType] = useState('')
-  const [timeType, setTimeType] = useState('')
+  const [activityType, setActivityType] = useState('none')
+  const [timeType, setTimeType] = useState('none')
   const navigate = useNavigate()
+
+  useEffect(() => {
+    if(isOpen === false) {
+      setActivityType('none')
+      setTimeType('none')
+    }
+  }, [])
+
+  const applyFilters = () => {
+    if(activityType === 'Select activity type') setActivityType('none')
+    onClose()
+    navigate('/', { state: { activityType, timeType } })
+  }
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -33,7 +48,7 @@ const FilterModal = ({ isOpen, onClose }) => {
         <ModalBody>
           <Box>
             <FormLabel>Select activity type:</FormLabel>
-            <Select onChange={(e) => {setActivityType(e.target.value)}}>
+            <Select placeholder='Select activity type' onChange={(e) => {setActivityType(e.target.value)}}>
               {
                 activityTypes.map((item, index) => (
                   <option key={index} value={item}>{item}</option>
@@ -50,14 +65,15 @@ const FilterModal = ({ isOpen, onClose }) => {
                 }
               </Stack>
             </RadioGroup>
+            <FormControl>
+              <FormHelperText>Note: if you set one of fields to none filters wouldn't apply</FormHelperText>
+            </FormControl>
           </Box>
         </ModalBody>
         <ModalFooter gap={4}>
-          <Button 
+          <Button
             colorScheme='teal' 
-            onClick={() => {
-              navigate('/', { state: { activityType, timeType } })
-            }}
+            onClick={applyFilters}
           >
             Apply
           </Button>
