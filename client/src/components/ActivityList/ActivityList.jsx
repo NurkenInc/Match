@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react'
 import {
   Box,
   Container,
-  Spinner
+  Spinner,
+  Heading
 } from '@chakra-ui/react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getActivityCards } from '../../actions/activityCards'
@@ -11,7 +12,7 @@ import { ActivityCard } from '../index'
 
 import { testCards } from '../../constants'
 
-const ActivityList = () => {
+const ActivityList = ({ filters }) => {
   const { activityCards, activityCard, isLoading, error, numberOfPages, currentPage } = useSelector((state) => state.activityCards)
 
   const dispatch = useDispatch()
@@ -29,10 +30,21 @@ const ActivityList = () => {
     })
   }
 
+  const applyFilters = (arr) => {
+    if(filters === null || !Object.keys(filters).length || filters?.timeType === 'none' || filters?.activityType === 'none') {
+      return arr
+    }
+    return arr.filter((item) => item.activityType === filters?.activityType && item.timeType === filters?.timeType)
+  }
+
+  const getActivityList = () => {
+    return applyFilters(sortByDates(1))
+  }
+
   return (
     <Container maxW={'container.xl'}>
       {
-        isLoading ? 
+        isLoading ?
         <Box
           display={'flex'}
           justifyContent={'center'}
@@ -48,15 +60,18 @@ const ActivityList = () => {
           py={8}
         >
           {
-            activityCards !== undefined && (
-              sortByDates(1).map((item, index) => (
+            getActivityList() !== undefined && getActivityList().length ? (
+              getActivityList().map((item, index) => (
                 <ActivityCard
                   key={item._id}
                   id={item._id}
                   {...item}
                 />
               ))
-            )
+            ) :
+            <Box>
+              <Heading>Sorry. Data not found</Heading>
+            </Box>
           }
         </Box>
       }
