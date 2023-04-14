@@ -31,6 +31,12 @@ const ActivityList = ({ filters }) => {
   }
 
   const applyFilters = (arr) => {
+    if(filters?.query !== undefined) {
+      return arr.filter((item) => Object.values(item).includes(filters.query.toLowerCase()))
+    }
+    if(filters?.saved !== undefined) {
+      return arr.filter((item) => item.likes.includes(filters.id))
+    }
     if(filters === null || !Object.keys(filters).length || filters?.timeType === 'none' || filters?.activityType === 'none') {
       return arr
     }
