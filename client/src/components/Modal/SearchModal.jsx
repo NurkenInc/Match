@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   Modal,
   ModalOverlay,
@@ -12,11 +12,15 @@ import {
   Input,
   FormLabel,
 } from '@chakra-ui/react'
-import { useNavigate } from 'react-router'
+import { useLocation, useNavigate } from 'react-router'
 
 const SearchModal = ({ isOpen, onClose }) => {
   const [query, setQuery] = useState('')
   const navigate = useNavigate()
+
+  useEffect(() => {
+    setQuery('')
+  }, [isOpen])
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -40,6 +44,7 @@ const SearchModal = ({ isOpen, onClose }) => {
           <Button 
             colorScheme='teal'
             onClick={() => {
+              onClose()
               navigate('/', { state: { query } })
             }}
           >
