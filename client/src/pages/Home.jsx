@@ -1,5 +1,5 @@
 import { Box, Image } from '@chakra-ui/react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 import { 
   Navbar,
@@ -9,9 +9,14 @@ import {
 
 import { gradient01 } from '../styles'
 
+const useQuery = () => {
+  return new URLSearchParams(useLocation().search)
+}
+
 const Home = () => {
   const location = useLocation()
-
+  const query = useQuery()
+  const page = query.get('page') || 1
   const filters = location.state
   
   return (
