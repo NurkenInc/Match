@@ -73,6 +73,20 @@ const Navbar = () => {
     }
   }
 
+  const handleSavedFilter = () => {
+    if (!user) {
+      toast({
+        title: 'You aren\'t logged in',
+        status: 'error',
+        position: 'top',
+        duration: 700,
+        isClosable: true,
+      })
+      return
+    }
+    navigate('/', { state: { saved: 'saved', id: JSON.parse(localStorage.getItem('profile'))?.id } })
+  }
+
   useEffect(() => {
     getToken()
   }, [location, auth.data])
@@ -158,17 +172,7 @@ const Navbar = () => {
               <ListItem 
                 cursor={'pointer'}
                 _hover={navIconsHover}
-                onClick={() => {
-                  if (!user) {
-                    toast({
-                      title: 'You aren\'t logged in',
-                      status: 'error',
-                      position: 'top',
-                      duration: 700,
-                      isClosable: true,
-                    })
-                  }
-                }}
+                onClick={handleSavedFilter}
               >
                 {/* make filter by liked */}
                   <Tooltip label='Saved'>
