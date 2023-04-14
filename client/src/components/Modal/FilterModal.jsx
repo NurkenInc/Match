@@ -31,7 +31,7 @@ const FilterModal = ({ isOpen, onClose }) => {
       setActivityType('none')
       setTimeType('none')
     }
-  }, [])
+  }, [isOpen])
 
   const applyFilters = () => {
     if(activityType === 'Select activity type') setActivityType('none')
