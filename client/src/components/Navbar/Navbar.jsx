@@ -27,15 +27,15 @@ import { AiFillHome, AiOutlineSearch, AiFillHeart  } from 'react-icons/ai'
 import { HiFilter } from 'react-icons/hi'
 import { BsFillBookmarkFill } from 'react-icons/bs'
 
-import { Logotype, FilterModal, SearchModal, CreateActivityCardModal } from '../index'
+import { 
+  Logotype, 
+  FilterModal, 
+  SearchModal, 
+  CreateActivityCardModal, 
+  CustomIcon,
+} from '../index'
 
 import { navIconsHover } from '../../styles' 
-
-const CustomIcon = React.forwardRef(({ children, ...rest }, ref) => (
-  <Box ref={ref} {...rest}>
-    {children}
-  </Box>
-))
 
 const Navbar = () => {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile'))?.token)
@@ -118,10 +118,10 @@ const Navbar = () => {
           alignItems={'center'}
           gap={14}
           backgroundColor={'blackAlpha.200'}
-          px={8}
+          px={{ base: 0, sm: 8 }}
           borderTopRadius={'30px'}
           borderRightRadius={'30px'}
-          > 
+          >
           <Box
             cursor={'default'}
             p={2}
@@ -129,7 +129,9 @@ const Navbar = () => {
           >
             <Logotype />
           </Box>
-          <Box>
+          <Box 
+            display={{ base: 'none', sm: 'block' }}
+          >
             <List 
               display={'flex'}
               justifyContent={'center'}
@@ -214,7 +216,7 @@ const Navbar = () => {
                 alignItems={'center'}
                 _hover={navIconsHover}
                 onClick={() => {
-                  navigate('/')
+                  navigate('/activityCards')
                 }}
               >
                 <Menu>
