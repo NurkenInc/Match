@@ -30,7 +30,7 @@ const Home = () => {
       >
         <Image 
           position={'absolute'}
-          src='public/university_bg.jpg'
+          src='/university_bg.jpg'
           opacity={0.2}
           w={'70%'}
           h={'80%'}
