@@ -124,7 +124,7 @@ const ActivityCard = ({ likes, deadline, creator, id, image, title, employerName
               justifyContent={'flex-start'}
               gap={1}
             >
-              <ShareButton url={`https://match.netlify.app/activity-details/${id}`} />
+              <ShareButton url={`https://matchactivity.netlify.app/activity-details/${id}`} />
               <Heading
                 py={1}
                 fontSize={'24px'}
