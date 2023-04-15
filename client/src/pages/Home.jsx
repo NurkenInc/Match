@@ -4,7 +4,8 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { 
   Navbar,
   Hero,
-  ActivityList
+  ActivityList,
+  Pagination
 } from '../components'
 
 import { gradient01 } from '../styles'
@@ -39,6 +40,7 @@ const Home = () => {
         <Box background={gradient01}>
           <Hero />
           <ActivityList filters={filters} />
+          <Pagination page={page} />
         </Box>
       </Box>
     </Box>
