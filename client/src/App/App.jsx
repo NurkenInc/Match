@@ -7,7 +7,7 @@ import {
   Auth
 } from '../pages'
 
-import { Navbar } from '../components'
+import { Navbar, FooterNavbar } from '../components'
 
 import theme from '../theme'
 import './App.css'
@@ -23,6 +23,7 @@ function App() {
           <Route path='/activity-details/:activityId' element={<ActivityDetails />} />
           <Route path='/auth' element={<Auth />} />
         </Routes>
+        <FooterNavbar />
       </Router>
     </ChakraProvider>
   )
