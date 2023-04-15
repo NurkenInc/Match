@@ -10,6 +10,7 @@ import ActivityList from './ActivityList/ActivityList'
 import AuthForm from './AuthForm/AuthForm'
 import CreateActivityCardModal from './Modal/CreateActivityCardModal'
 import ShareButton from './ShareButton/ShareButton'
+import Pagination from './Pagination/Pagination'
 
 export {
   Logotype,
@@ -23,5 +24,6 @@ export {
   ActivityList,
   AuthForm,
   CreateActivityCardModal,
-  ShareButton
+  ShareButton,
+  Pagination
 }
