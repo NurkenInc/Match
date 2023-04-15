@@ -11,13 +11,13 @@ import {
 
 import * as api from '../api'
 
-export const getActivityCards = () => {
+export const getActivityCards = (page) => {
   return async (dispatch) => {
     dispatch({ type: ACTIVITY_CARD_REQUEST })
 
     try {
 
-      const { data, currentPage, numberOfPages } = await api.fetchActivityCards()
+      const { data, currentPage, numberOfPages } = await api.fetchActivityCards(page)
 
       dispatch({
         type: FETCH_ACTIVITY_CARDS_SUCCESS,
