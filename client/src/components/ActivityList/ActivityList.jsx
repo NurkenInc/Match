@@ -15,12 +15,6 @@ import { testCards } from '../../constants'
 const ActivityList = ({ filters }) => {
   const { activityCards, activityCard, isLoading, error, numberOfPages, currentPage } = useSelector((state) => state.activityCards)
 
-  const dispatch = useDispatch()
-
-  useEffect(() => {
-    dispatch(getActivityCards())
-  }, [])
-
   const sortByDates = (type) => {
     return activityCards.sort((a, b) => {
       a = new Date(a.createdAt)
