@@ -84,7 +84,7 @@ const Navbar = () => {
       })
       return
     }
-    navigate('/', { state: { saved: 'saved', id: JSON.parse(localStorage.getItem('profile'))?.id } })
+    navigate('/activityCards', { state: { saved: 'saved', id: JSON.parse(localStorage.getItem('profile'))?.id } })
   }
 
   useEffect(() => {
@@ -153,7 +153,7 @@ const Navbar = () => {
               <ListItem 
                 _hover={navIconsHover} 
                 onClick={() => {
-                  navigate('/')
+                  navigate('/activityCards')
                 }}
               >
                 <Tooltip label='Home'>
