@@ -5,7 +5,13 @@ import {
 
 const Tabs = ({ tabs, activeTab, setActiveTab }) => {
   return (
-    <Box>
+    <Box 
+      display={'flex'}
+      flexWrap={'wrap'}
+      justifyContent={'center'}
+      alignItems={'center'}
+      gap={1}
+    >
       {
         tabs.map((item, index) => (
           <Button
