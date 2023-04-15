@@ -36,7 +36,7 @@ const FilterModal = ({ isOpen, onClose }) => {
   const applyFilters = () => {
     if(activityType === 'Select activity type') setActivityType('none')
     onClose()
-    navigate('/', { state: { activityType, timeType } })
+    navigate('/activityCards', { state: { activityType, timeType } })
   }
 
   return (
