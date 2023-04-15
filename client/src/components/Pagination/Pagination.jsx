@@ -28,7 +28,7 @@ const Pagination = ({ page }) => {
   }, [dispatch, page])
 
   return (
-    <Box py={5}>
+    <Box py={{ base: 10, sm: 5 }}>
       <Stack 
         display={'flex'} 
         flexDir={'row'}
