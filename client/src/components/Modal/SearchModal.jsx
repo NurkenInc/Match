@@ -45,7 +45,7 @@ const SearchModal = ({ isOpen, onClose }) => {
             colorScheme='teal'
             onClick={() => {
               onClose()
-              navigate('/', { state: { query } })
+              navigate('/activityCards', { state: { query } })
             }}
           >
             Apply
