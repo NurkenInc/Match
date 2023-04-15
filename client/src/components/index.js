@@ -11,6 +11,8 @@ import AuthForm from './AuthForm/AuthForm'
 import CreateActivityCardModal from './Modal/CreateActivityCardModal'
 import ShareButton from './ShareButton/ShareButton'
 import Pagination from './Pagination/Pagination'
+import CustomIcon from './CustomIcon/CustomIcon'
+import FooterNavbar from './FooterNavbar/FooterNavbar'
 
 export {
   Logotype,
@@ -25,5 +27,7 @@ export {
   AuthForm,
   CreateActivityCardModal,
   ShareButton,
-  Pagination
+  Pagination,
+  CustomIcon,
+  FooterNavbar
 }
