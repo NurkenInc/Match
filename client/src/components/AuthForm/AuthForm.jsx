@@ -91,10 +91,10 @@ const AuthForm = () => {
     }
     if (isLogin) {
       dispatch(signin(form))
-      navigate('/')
+      navigate('/activityCards')
     } else {
       dispatch(signup(form))
-      navigate('/')
+      navigate('/activityCards')
     }
   }
 
