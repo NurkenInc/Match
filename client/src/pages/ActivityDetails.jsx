@@ -19,6 +19,7 @@ import { GoLocation } from 'react-icons/go'
 import { MdFilterListAlt } from 'react-icons/md'
 import { BiTimeFive } from 'react-icons/bi'
 
+import { checkImageURL } from '../utils'
 import { Tabs, Specifics } from '../components'
 
 const tabs = ['about', 'requirements', 'responsibilities', 'benefits']
@@ -27,7 +28,7 @@ const ActivityDetails = () => {
   const [activeTab, setActiveTab] = useState('about')
   const location = useLocation()
   const navigate = useNavigate()
-  const { image, title, employerName, employerLogo, text, requirements, responsibilities, benefits, link, country, type, time, position } = location.state
+  const { image, title, employerName, employerLogo, text, requirements, responsibilities, benefits, link, country, activityType, timeType, position } = location.state
 
   const getActiveTabText = () => {
     switch(activeTab) {
@@ -80,22 +81,24 @@ const ActivityDetails = () => {
           >
             <Box>
               <Image 
-                src={employerLogo}
+                src={checkImageURL(employerLogo) ? employerLogo : '/logo-placeholder.svg'}
                 width={'5rem'}
                 height={'5rem'}
                 borderRadius={'50%'}
-                />
+              />
             </Box>
             <Box
               fontFamily={'Panoptica-SansBold'}
               color={'whiteAlpha.700'}
               display={'flex'}
+              fontSize={{base: '14px', sm: '16px' }}
               justifyContent={'center'}
               alignItems={'center'}
               pb={4}
             >
               <Box
                 display={'flex'}
+                flexDir={'row'}
                 justifyContent={'center'}
                 alignItems={'center'}
               >
@@ -109,7 +112,7 @@ const ActivityDetails = () => {
                 alignItems={'center'}
               >
                 <BiTimeFive />
-                <Text>{time}</Text>
+                <Text>{timeType}</Text>
               </Box>
               <Text px={1}> / </Text>
               <Box
@@ -118,7 +121,7 @@ const ActivityDetails = () => {
                 alignItems={'center'}
               >
                 <MdFilterListAlt />
-                <Text>{type}</Text>
+                <Text>{activityType}</Text>
               </Box>
               <Text px={1}> / </Text>
               <Box
