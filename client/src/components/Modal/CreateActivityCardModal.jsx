@@ -130,8 +130,8 @@ const CreateActivityCardModal = ({ isOpen, onClose, isCreate, id, card }) => {
       })
       return
     }
-
     setForm({...form, requirements, responsibilities, benefits })
+    
     if(isCreate) {
       dispatch(createActivityCard(form))
     } else {
