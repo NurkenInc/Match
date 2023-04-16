@@ -16,6 +16,7 @@ import {
   MenuItem,
   MenuButton
 } from '@chakra-ui/react'
+import { SignedIn, SignedOut, UserButton, useUser } from '@clerk/clerk-react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import decode from 'jwt-decode'
@@ -38,40 +39,13 @@ import {
 import { navIconsHover } from '../../styles' 
 
 const Navbar = () => {
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile'))?.token)
-  const userRole = useSelector((state) => state.user)
-  const auth = useSelector((state) => state.auth)
+  const { user } = useUser()
 
   const searchModal = useDisclosure()
   const filterModal = useDisclosure()
   const createActivityCardModal = useDisclosure()
   const toast = useToast()
   const navigate = useNavigate()
-  const location = useLocation()
-  const dispatch = useDispatch()
-
-  const logoutUser = () => {
-    dispatch(logout())
-
-    navigate('/')
-
-    setUser(null)
-  }
-
-  const getToken = () => {
-    const user = JSON.parse(localStorage.getItem('profile'))?.token
-
-    if (user) {
-      const decodedToken  = decode(user)
-
-      if(decodedToken.exp * 1000 < new Date().getTime()) {
-        logoutUser()
-        return
-      }
-
-      setUser(user)
-    }
-  }
 
   const handleSavedFilter = () => {
     if (!user) {
@@ -87,19 +61,8 @@ const Navbar = () => {
     navigate('/activityCards', { state: { saved: 'saved', id: JSON.parse(localStorage.getItem('profile'))?.id } })
   }
 
-  useEffect(() => {
-    getToken()
-  }, [location, auth.data])
-  
-  useEffect(() => {
-    getToken()
-    if(user) {
-      dispatch(getUserRole())
-    }
-  }, [])
-
   return (
-    <Box 
+    <Box
       as='nav' 
       position={'fixed'} 
       w={'100%'}
@@ -195,7 +158,7 @@ const Navbar = () => {
             opacity={0.4}
           >
             {
-              userRole.data === 'copywriter' && user && (
+              user?.publicMetadata.role === 'copywriter' && (
                 <Button
                   w={'70%'}
                   onClick={createActivityCardModal.onOpen}
@@ -204,42 +167,20 @@ const Navbar = () => {
                 </Button>
               )
             }
-            {
-              user ?
-              <ListItem
-                backgroundColor={'white'}
-                borderRadius={'50%'}
-                width={'2rem'}
-                height={'2rem'}
-                display={'flex'}
-                justifyContent={'center'}
-                alignItems={'center'}
-                _hover={navIconsHover}
-                onClick={() => {
-                  navigate('/activityCards')
-                }}
-              >
-                <Menu>
-                    <MenuButton>
-                      <Tooltip label='profile'>
-                        <CustomIcon><BiUser /></CustomIcon>
-                      </Tooltip>
-                    </MenuButton>
-                  <MenuList>
-                    <MenuItem onClick={logoutUser}>Logout</MenuItem>  
-                  </MenuList>
-                </Menu>
-              </ListItem> :
+            <SignedIn>
+              <UserButton />
+            </SignedIn>
+            <SignedOut>
               <Button
-                  w={'100%'}
-                  onClick={() => {
-                      navigate('/auth')
-                  }}
-                >
-                  <BiLogIn />
-                  <Text>Log In</Text>
+                    w={'100%'}
+                    onClick={() => {
+                        navigate('/sign-in')
+                    }}
+                  >
+                    <BiLogIn />
+                    <Text>Log In</Text>
               </Button>
-            }
+            </SignedOut>
           </List>
         </Box>
       </Container>
