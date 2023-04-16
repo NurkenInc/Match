@@ -60,7 +60,6 @@ export const createActivityCard = (card) => {
     dispatch({ type: ACTIVITY_CARD_REQUEST })
 
     try {
-
       const { data } = await api.createActivityCard(card)
 
       dispatch({
