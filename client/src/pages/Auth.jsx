@@ -4,7 +4,7 @@ import {
 } from '@chakra-ui/react'
 import { AuthForm } from '../components'
 
-const Auth = () => {
+const Auth = ({ children }) => {
   return (
     <Box 
       h={'100vh'} 
@@ -13,7 +13,7 @@ const Auth = () => {
       justifyContent={'center'}
       alignItems={'center'}
     >
-      <AuthForm />
+      {children}
     </Box>
   )
 }
