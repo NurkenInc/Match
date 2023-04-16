@@ -12,14 +12,16 @@ import auth from '../middleware/auth.js'
 
 const router = express.Router()
 
+// TODO: implement middleware
+
 router.get('/', getActivityCards)
 router.get('/:id', getActivityCard)
 
-router.post('/', auth, createActivityCard)
+router.post('/', createActivityCard)
 
-router.delete('/:id', auth, deleteActivityCard)
+router.delete('/:id', deleteActivityCard)
 
-router.patch('/:id', auth, updateActivityCard)
-router.patch('/:id/likeActivityCard', auth, likeActivityCard)
+router.patch('/:id', updateActivityCard)
+router.patch('/:id/likeActivityCard', likeActivityCard)
 
 export default router
