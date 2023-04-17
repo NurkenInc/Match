@@ -16,7 +16,7 @@ import {
   MenuItem,
   MenuButton
 } from '@chakra-ui/react'
-import { SignedIn, SignedOut, UserButton, useUser } from '@clerk/clerk-react'
+import { SignedIn, SignedOut, UserButton, useUser, useClerk } from '@clerk/clerk-react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import decode from 'jwt-decode'
@@ -152,16 +152,16 @@ const Navbar = () => {
             display={'flex'}
             justifyContent={'center'}
             gap={4}
-            alignContent={'center'}
+            alignItems={'center'}
             fontFamily={'Panoptica-SansBold'}
             color={'black'}
-            opacity={0.4}
           >
             {
               user?.publicMetadata.role === 'copywriter' && (
                 <Button
                   w={'70%'}
                   onClick={createActivityCardModal.onOpen}
+                  opacity={0.4}
                 >
                   Create post
                 </Button>
@@ -176,6 +176,7 @@ const Navbar = () => {
                     onClick={() => {
                         navigate('/sign-in')
                     }}
+                    opacity={0.4}
                   >
                     <BiLogIn />
                     <Text>Log In</Text>
