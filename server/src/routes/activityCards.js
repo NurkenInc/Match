@@ -8,7 +8,6 @@ import {
   likeActivityCard,
   updateActivityCard
 } from '../controllers/index.js'
-import auth from '../middleware/auth.js'
 
 const router = express.Router()
 
