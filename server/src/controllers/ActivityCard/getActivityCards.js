@@ -5,6 +5,8 @@ import { ActivityCard } from '../../models/index.js'
 
 const getActivityCards = async (req, res) => {
   const { page } = req.query
+  const auth = req.auth
+  console.log(auth.debug())
 
   try {
     const LIMIT = 8
