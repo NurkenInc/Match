@@ -1,10 +1,10 @@
 import axios from 'axios'
-import useToken from '../hooks/useToken'
 
 // const API = axios.create({ baseURL: 'https://match-bs3r.onrender.com' })
 const API = axios.create({ baseURL: 'http://localhost:5000' })
 
 //todo refactor this file
+
 // API.interceptors.request.use((req) => {
 //   console.log(useToken())
 //   if(localStorage.getItem('clerk-db-jwt')) {
