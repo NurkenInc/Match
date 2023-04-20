@@ -18,7 +18,7 @@ app.use(cors({
 }))
 app.use(express.json())
 
-app.use(clerk.expressRequireAuth())
+app.use(clerk.expressWithAuth())
 app.use('/activityCards', activityCardRoutes)
 // app.use('/users', userRoutes)
 
