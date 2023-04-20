@@ -2,23 +2,26 @@ import express from 'express'
 import mongoose from 'mongoose'
 
 import { ActivityCard } from '../../models/index.js'
+import clerk from '../../middleware/clerk.js'
 
 const likeActivityCard = async (req, res) => {
   const { id } = req.params
+  const { userId } = req.auth
+  const user = await clerk.users.getUser(userId)
 
-  if(!req.userId) {
-    return res.json('Unauthenticated')
+  if(!user) {
+    return res.status(403).json({ message: 'Unauthorized' })
   }
 
   try {
     const activityCard = await ActivityCard.findById(id)
 
-    const index = activityCard.likes.findIndex((id) => id === String(req.userId))
+    const index = activityCard.likes.findIndex((id) => id === String(userId))
 
     if(index === -1) {
-      activityCard.likes.push(req.userId)
+      activityCard.likes.push(userId)
     } else {
-      activityCard.likes = activityCard.likes.filter((id) => id !== String(req.userId))
+      activityCard.likes = activityCard.likes.filter((id) => id !== String(userId))
     }
 
     const updatedPost = await ActivityCard.findByIdAndUpdate(id, activityCard, { new: true })
