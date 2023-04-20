@@ -8,16 +8,26 @@ import {
   FETCH_ACTIVITY_CARD_SUCCESS,
   FETCH_ACTIVITY_CARDS_SUCCESS
 } from '../constants/actionTypes'
+import axios from 'axios'
 
 import * as api from '../api'
 
-export const getActivityCards = (page) => {
+const API = axios.create({ baseURL: 'http://localhost:5000' })
+
+export const getActivityCards = (page, token) => {
   return async (dispatch) => {
     dispatch({ type: ACTIVITY_CARD_REQUEST })
 
     try {
+      API.interceptors.request.use((req) => {
+        if(token) {
+          req.headers.Authorization = `Bearer ${token}`
+        }
+      
+        return req
+      }) // todo make it like func notin that file and give it token
 
-      const { data, currentPage, numberOfPages } = await api.fetchActivityCards(page)
+      const { data, currentPage, numberOfPages } = await API.get(`/activityCards?page=${page}`)
 
       dispatch({
         type: FETCH_ACTIVITY_CARDS_SUCCESS,
