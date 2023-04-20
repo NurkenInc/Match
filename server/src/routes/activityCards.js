@@ -8,19 +8,18 @@ import {
   likeActivityCard,
   updateActivityCard
 } from '../controllers/index.js'
+import clerk from '../middleware/clerk.js'
 
 const router = express.Router()
-
-// TODO: implement middleware
 
 router.get('/', getActivityCards)
 router.get('/:id', getActivityCard)
 
-router.post('/', createActivityCard)
+router.post('/', clerk.expressWithAuth(), createActivityCard)
 
-router.delete('/:id', deleteActivityCard)
+router.delete('/:id', clerk.expressWithAuth(), deleteActivityCard)
 
-router.patch('/:id', updateActivityCard)
-router.patch('/:id/likeActivityCard', likeActivityCard)
+router.patch('/:id', clerk.expressWithAuth(), updateActivityCard)
+router.patch('/:id/likeActivityCard', clerk.expressWithAuth(), likeActivityCard)
 
 export default router
