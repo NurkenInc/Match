@@ -1,15 +1,18 @@
 import axios from 'axios'
+import useToken from '../hooks/useToken'
 
 // const API = axios.create({ baseURL: 'https://match-bs3r.onrender.com' })
 const API = axios.create({ baseURL: 'http://localhost:5000' })
 
-API.interceptors.request.use((req) => {
-  if(localStorage.getItem('clerk-db-jwt')) {
-    req.headers.Authorization = `Bearer ${localStorage.getItem('clerk-db-jwt')}`
-  }
+//todo refactor this file
+// API.interceptors.request.use((req) => {
+//   console.log(useToken())
+//   if(localStorage.getItem('clerk-db-jwt')) {
+//     req.headers.Authorization = `Bearer ${localStorage.getItem('clerk-db-jwt')}`
+//   }
 
-  return req
-})
+//   return req
+// })
 
 export const fetchActivityCard = (id) => API.get(`/activityCards/${id}`)
 export const fetchActivityCards = (page) => API.get(`/activityCards?page=${page}`)
