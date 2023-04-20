@@ -23,6 +23,7 @@ import {
 import moment from 'moment'
 import { useNavigate } from 'react-router'
 import { useDispatch } from 'react-redux'
+import { useAuth } from '@clerk/clerk-react'
 
 import { activityTypes, timeTypes } from '../../constants'
 import { createActivityCard, updateActivityCard } from '../../actions/activityCards'
@@ -53,6 +54,7 @@ const CreateActivityCardModal = ({ isOpen, onClose, isCreate, id, card }) => {
   const [invalidInput, setInvalidInput] = useState([])
   const [inputError, setInpurError] = useState('')
 
+  const { getToken } = useAuth()
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const toast = useToast()
@@ -118,7 +120,7 @@ const CreateActivityCardModal = ({ isOpen, onClose, isCreate, id, card }) => {
     })
   }
 
-  const createPost = () => {
+  const createPost = async () => {
     if(!isFormValid()) {
       toast({
         title: 'Empty inputs',
@@ -132,11 +134,13 @@ const CreateActivityCardModal = ({ isOpen, onClose, isCreate, id, card }) => {
     }
     setForm({...form, requirements, responsibilities, benefits })
     
+    const token = await getToken({ template: 'template-longer-lifetime' })
     if(isCreate) {
-      dispatch(createActivityCard(form))
+      dispatch(createActivityCard(form, token))
     } else {
-      dispatch(updateActivityCard(id, form))
+      dispatch(updateActivityCard(id, form, token))
     }
+
     onClose()
     navigate('/')
     toast({
