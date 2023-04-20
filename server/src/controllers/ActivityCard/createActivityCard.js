@@ -1,15 +1,24 @@
 import express from 'express'
 import mongoose from 'mongoose'
+import clerkClient from '@clerk/clerk-sdk-node'
 
 import { ActivityCard } from '../../models/index.js'
+import clerk from '../../middleware/clerk.js'
 
 const createActivityCard = async (req, res) => {
   const card = req.body
+  const { userId } = req.auth
+  const user = await clerk.users.getUser(userId)
 
-  const newActivityCard = new ActivityCard({ ...card, creator: req.userId, createdAt: new Date().toISOString() })
+  if(!user || user.publicMetadata.role !== 'copywriter') {
+    return res.status(403).json({ message: 'Unauthorized' })
+  }
+
+  const newActivityCard = new ActivityCard({ ...card, creator: userId, createdAt: new Date().toISOString() })
 
   try {
     await newActivityCard.save()
+
 
     res.status(201).json({ 
       data: newActivityCard
