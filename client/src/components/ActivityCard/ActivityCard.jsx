@@ -13,6 +13,7 @@ import {
 } from '@chakra-ui/react'
 import { useNavigate } from 'react-router'
 import { useDispatch, useSelector } from 'react-redux'
+import { useAuth, useUser } from '@clerk/clerk-react'
 
 import { likeActivityCard } from '../../actions/activityCards'
 import { AiOutlineShareAlt, AiFillLike } from 'react-icons/ai' 
@@ -26,10 +27,10 @@ import { CreateActivityCardModal, ShareButton } from '../index'
 // import { gradient01 } from '../../styles'
 
 const ActivityCard = ({ likes, deadline, creator, id, image, title, employerName, employerLogo, text, requirements, responsibilities, benefits, link, country, activityType, timeType, position }) => {
-  const user = JSON.parse(localStorage.getItem('profile'))
-  const userRole = useSelector((state) => state.user)
+  const { user } = useUser()
 
   const { isOpen, onClose, onOpen } = useDisclosure()
+  const { getToken } = useAuth()
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const toast = useToast()
@@ -80,7 +81,7 @@ const ActivityCard = ({ likes, deadline, creator, id, image, title, employerName
     )
   }
 
-  const handleLikeClick = () => {
+  const handleLikeClick = async () => {
     if(!user) {
       toast({
         title: 'You aren\'t logged in',
@@ -91,7 +92,8 @@ const ActivityCard = ({ likes, deadline, creator, id, image, title, employerName
       })
       return
     }
-    dispatch(likeActivityCard(id))
+    const token = await getToken({ template: 'template-longer-lifetime' })
+    dispatch(likeActivityCard(id, token))
   }
 
   const truncateText = (text, length) => {
@@ -191,7 +193,7 @@ const ActivityCard = ({ likes, deadline, creator, id, image, title, employerName
               </Box>
             </Button>
             {
-              userRole?.data === 'copywriter' && creator === user?.id && (
+              user?.publicMetadata?.role === 'copywriter' && creator === user?.id && (
                 <Button
                   opacity={0.8}
                   colorScheme='teal'
