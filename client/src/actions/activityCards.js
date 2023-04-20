@@ -14,19 +14,21 @@ import * as api from '../api'
 
 const API = axios.create({ baseURL: 'http://localhost:5000' })
 
-export const getActivityCards = (page, token) => {
+const setupAPI = (token) => {
+  API.interceptors.request.use((req) => {
+    if(token) {
+      req.headers.Authorization = `Bearer ${token}`
+    }
+  
+    return req
+  })
+}
+
+export const getActivityCards = (page) => {
   return async (dispatch) => {
     dispatch({ type: ACTIVITY_CARD_REQUEST })
 
     try {
-      API.interceptors.request.use((req) => {
-        if(token) {
-          req.headers.Authorization = `Bearer ${token}`
-        }
-      
-        return req
-      }) // todo make it like func notin that file and give it token
-
       const { data, currentPage, numberOfPages } = await API.get(`/activityCards?page=${page}`)
 
       dispatch({
@@ -49,7 +51,7 @@ export const getActivityCard = (id) => {
 
     try {
 
-      const { data } = await api.fetchActivityCard(id)
+      const { data } = await API.get(`/activityCards/${id}`)
 
       dispatch({
         type: FETCH_ACTIVITY_CARD_SUCCESS,
@@ -65,12 +67,14 @@ export const getActivityCard = (id) => {
   }
 }
 
-export const createActivityCard = (card) => {
+export const createActivityCard = (card, token) => {
   return async (dispatch) => {
     dispatch({ type: ACTIVITY_CARD_REQUEST })
 
     try {
-      const { data } = await api.createActivityCard(card)
+      setupAPI(token)
+
+      const { data } = await API.post(`/activityCards`, card)
 
       dispatch({
         type: CREATE_ACTIVITY_CARD_SUCCESS,
@@ -86,13 +90,14 @@ export const createActivityCard = (card) => {
   }
 }
 
-export const deleteActivityCard = (id) => {
+export const deleteActivityCard = (id, token) => {
   return async (dispatch) => {
     dispatch({ type: ACTIVITY_CARD_REQUEST })
 
     try {
+      setupAPI(token)
 
-      await api.deleteActivityCard(id)
+      await API.delete(`/activityCards/${id}`)
 
       dispatch({
         type: DELETE_ACTIVITY_CARD_SUCCESS,
@@ -108,13 +113,14 @@ export const deleteActivityCard = (id) => {
   }
 }
 
-export const updateActivityCard = (id, card) => {
+export const updateActivityCard = (id, card, token) => {
   return async (dispatch) => {
     dispatch({ type: ACTIVITY_CARD_REQUEST })
 
     try {
-
-      const { data } = await api.updateActivityCard(id, card)
+      setupAPI(token)
+      
+      const { data } = await API.patch(`/activityCards/${id}`, card)
 
       dispatch({
         type: UPDATE_ACTIVITY_CARD_SUCCESS,
@@ -130,15 +136,15 @@ export const updateActivityCard = (id, card) => {
   }
 }
 
-export const likeActivityCard = (id) => {
-  const user = JSON.parse(localStorage.getItem('profile'))
+export const likeActivityCard = (id, token) => {
   
   return async (dispatch) => {
     dispatch({ type: ACTIVITY_CARD_REQUEST })
 
     try {
+      setupAPI(token)
 
-      const { data } = await api.likeActivityCard(id, user?.token)
+      const { data } = await API.patch(`/activityCards/${id}/likeActivityCard`)
       
       dispatch({
         type: LIKE_ACTIVITY_CARD_SUCCESS,
