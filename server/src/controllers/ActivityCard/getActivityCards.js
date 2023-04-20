@@ -5,11 +5,7 @@ import { ActivityCard } from '../../models/index.js'
 
 const getActivityCards = async (req, res) => {
   const { page } = req.query
-  const { userId } = req.auth
-  console.log(auth)
-
-  // todo implement logic that we get user from clerk id and if user metadata role copwriter he can create post
-
+  
   try {
     const LIMIT = 8
     const startIndex = (Number(page) - 1) * LIMIT
