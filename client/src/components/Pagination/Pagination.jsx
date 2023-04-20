@@ -9,8 +9,7 @@ import { getActivityCards } from '../../actions/activityCards'
 
 const Pagination = ({ page }) => {
   const { numberOfPages } = useSelector((state) => state.activityCards)
-  const auth = useAuth()
-
+  
   const navigate = useNavigate()
   const dispatch = useDispatch()
   
@@ -24,10 +23,8 @@ const Pagination = ({ page }) => {
   }
 
   const fetchActivityCards = async () => {
-    const token = await auth.getToken()
-    if(page && token) {
-      console.log(token)
-      dispatch(getActivityCards(page, token))
+    if(page) {
+      dispatch(getActivityCards(page))
     }
   }
 
