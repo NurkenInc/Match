@@ -58,7 +58,7 @@ const Navbar = () => {
       })
       return
     }
-    navigate('/activityCards', { state: { saved: 'saved', id: JSON.parse(localStorage.getItem('profile'))?.id } })
+    navigate('/activityCards', { state: { saved: 'saved', id: user?.id } })
   }
 
   return (
